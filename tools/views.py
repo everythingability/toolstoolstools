@@ -45,6 +45,9 @@ def do_logout(request):
 def search(request):
     query = request.GET.get("q", False)
     results = []
+    tools = []
+    tags =[]
+    activities = []
     if query:
         tools = Tool.objects.filter(Q(name__contains=query)|Q(about__contains=query))
         tags = Tag.objects.filter(slug__contains=tag).first()
