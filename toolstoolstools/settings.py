@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*', ]
 
-
 # https://github.com/adamchainz/django-cors-headers
 CORS_ORIGIN_ALLOW_ALL = True
 '''CORS_ORIGIN_WHITELIST = [
@@ -38,7 +37,7 @@ CORS_ORIGIN_ALLOW_ALL = True
 ]'''
 
 INSTALLED_APPS = [
-      'corsheaders',
+    'corsheaders',
     'django.contrib.staticfiles',
     'tools',
     'django.contrib.admin',     
@@ -49,7 +48,7 @@ INSTALLED_APPS = [
     
      'tinymce',
     
-   'accounts',
+      'accounts',
     
 ]
 
