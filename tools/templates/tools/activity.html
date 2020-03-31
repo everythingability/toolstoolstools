@@ -1,0 +1,194 @@
+{% extends "_base.html" %}
+
+{%block title%} {{activity.name}} {%endblock%}
+
+{% block content %}
+<style>
+.text-image { 
+    {% if activity.tools.all.count > 0 %} 
+    background-image: url('{{activity.tools.first.image_url}}');
+  {% elif activity.image %}  
+    background-image: url('/uploads/{{activity.image_url}}');
+  {%endif%}
+   filter: saturate(300%) brightness(71%) ;
+  background-position-x: center;
+  background-position-y: top;
+  background-size: cover;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size:80px;
+   font-family: 'Franklin', sans-serif; 
+}
+</style>
+<script>
+
+
+
+</script>
+
+  
+    <h1 class="text-image">{{activity.name}}</h1>
+
+  <p class="lead ">
+    {{activity.preamble|safe}}
+   </p>
+
+    <ul class="list-inline">
+        {%for tag in tool.tags.all%}
+            <li class="list-inline-item" class="badge badge-primary">
+            <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+        {%endfor%}
+    </ul>
+
+
+  <hr class="my-4">
+   {% if request.user.is_authenticated %}
+   <a href="/admin/tools/activity/{{activity.id}}/change/" 
+   class="badge badge-primary">Edit</a>
+   <br>
+  {%endif%}
+
+
+ 
+
+  
+
+ 
+{%if activity.inspiration_text or activity.inspirations.all %}
+<h3>Inspiration</h3>
+{%endif%}
+
+ {{activity.inspiration_text|safe}}
+
+ <div class="card flex-row flex-wrap">
+   {%for item in activity.inspirations.all%}
+          <div class="card" style="width: 15rem;">
+                <div class="card-body">
+                <a href="{{item.url}}" target="_blank">
+                    <img class="card-img-top" 
+                        src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
+                        alt="Card image cap" height="150"
+                    ></a>
+
+                    <p class="card-text"> 
+                        <b>{{item.name}}</b>
+                        <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
+                        <br>
+                        {{item.about|safe}}
+                    </p>
+                </div>
+            </div>
+  {%endfor%}
+</div> 
+ <br> <br>
+
+ <br> <br>
+
+{%if activity.resources_text or activity.resources.all %}
+<h3>Resources</h3>
+{%endif%}
+
+{{activity.resources_text|safe}}
+
+ <div class="card flex-row flex-wrap">
+   {%for item in activity.resources.all%}
+          <div class="card" style="width: 15rem;">
+                <div class="card-body">
+                <a href="{{item.url}}" target="_blank">
+                    <img class="card-img-top" 
+                        src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
+                        alt="Card image cap" height="150"
+                    ></a>
+
+                    <p class="card-text"> 
+                        <b>{{item.name}}</b>
+                        <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
+                        <br>
+                        {{item.about|safe}}
+                    </p>
+                </div>
+         </div>
+  {%endfor%}
+</div> 
+ <br> <br>
+
+{%if activity.tools_text or activity.tools.all %}
+<h3>Tools</h3>
+{%endif%}
+
+{{activity.tools_text|safe}}
+
+ <div class="card flex-row flex-wrap">
+   {%for item in activity.tools.all%}
+          <div class="card" style="width: 15rem;">
+                <div class="card-body">
+                <a href="{{item.url}}" target="_blank">
+                    <img class="card-img-top" 
+                        src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
+                        alt="Card image cap" height="150"
+                    ></a>
+
+                    <p class="card-text"> 
+                        <b>{{item.name}}</b>
+                        <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
+                        <br>
+                        {{item.about|safe}}
+                    </p>
+                </div>
+        </div>
+  {%endfor%}
+</div> 
+ <br> <br>
+
+ <h3>Learning</h3>
+
+ {{activity.learning_text|safe}}
+
+{%for tool in activity.tools.all%}
+ <div class="card flex-row flex-wrap">
+   {%for item in tool.learnings.all%}
+          <div class="card" style="width: 15rem;">
+                <div class="card-body">
+                <a href="{{item.url}}" target="_blank">
+                    <img class="card-img-top" 
+                        src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
+                        alt="Card image cap" height="150"
+                    ></a>
+
+                    <p class="card-text"> 
+                        <b>{{item.name}}</b>
+                        <a href="{{item.url}}" target="_blank">{{item.url}}</a>
+                        <br>
+                        {{item.about|safe}}
+                    </p>
+                </div>
+            </div>
+  {%endfor%}
+</div>
+{%endfor%}
+
+ <div class="card flex-row flex-wrap">
+    {%for item in activity.learnings.all%}
+            <div class="card" style="width: 15rem;">
+                    <div class="card-body">
+                        <a href="{{item.url}}" target="_blank">
+                        <img class="card-img-top" 
+                            src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
+                            alt="Card image cap" height="150"
+                        ></a>
+
+                        <p class="card-text"> 
+                            <b>{{item.name}}</b>
+                            <a href="{{item.url}}" target="_blank">{{item.url}}</a>
+                            <br>
+                            {{item.about|safe}}
+                        </p>
+                    </div>
+            </div>
+    {%endfor%}
+</div>
+
+
+
+ 
+{% endblock %}

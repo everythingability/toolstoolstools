@@ -1,0 +1,43 @@
+/*default version*/
+@font-face {
+	font-family: 'Franklin';
+	src: url('/static/fonts/Franklin Gothic Heavy Italic.ttf')  format('truetype'); 
+}
+
+body{
+    background:#fff;  
+    font-size: 1.2rem;
+    font-weight: 300;
+}
+
+.container{   
+    /*min-width:992px;*/
+    min-width: 768px;
+    max-width: 968px;
+}
+.card{
+    border: 0px!important;
+    padding: 5px;
+}
+h1.activity{
+
+    text-align: center;
+    font-family: 'Franklin', sans-serif; 
+    color: white;
+    background: red;
+    position: absolute;
+    font-size: 70px;
+    padding: 10px;
+    top: 100px;
+    z-index: 100;
+    margin: 0 auto;
+    margin-left:50px;
+    margin-bottom:100px;
+   width: 50%;
+
+}
+
+.searchbutton{
+    background-color: white!important;
+
+}

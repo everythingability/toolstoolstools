@@ -1,0 +1,13 @@
+runtime: python
+env: flex
+entrypoint: gunicorn -b :$PORT toolstoolstools.wsgi
+
+handlers:
+# This configures Google App Engine to serve the files in the app's static
+# directory.
+- url: /static
+  static_dir: static/
+
+
+runtime_config:
+  python_version: 3

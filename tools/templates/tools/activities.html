@@ -1,0 +1,67 @@
+{% extends "_base.html" %}
+
+{%block title%} Home {%endblock%}
+
+{% block content %}
+
+<div>
+  
+  <p>
+  <div class="card flex-row flex-wrap">
+
+  {% for activity in activities %}
+   <div class="card" style="width: 15rem;">
+   <a href="{{activity.url}}" >
+
+   {%if activity.image%}
+      <img class="card-img-top" 
+      src="/uploads/{{activity.image}}" 
+      alt="Card image cap" height="150"
+      target="_blank">
+
+  {%elif activity.tools.all.count > 0 %}
+
+   <img class="card-img-top" 
+      src="{{activity.tools.first.image_url}}" 
+      alt="Card image cap" height="150"
+      target="_blank">
+  
+  {%else%}
+
+   <img class="card-img-top" 
+      src="/static/default_activity.png" 
+      alt="Card image cap" height="150"
+      target="_blank">
+  {%endif%}
+
+      </a>
+  <div class="card-body">
+         
+  <h3><a href="/activities/view/{{activity.slug}}">{{activity.name}}</a></h3>
+     <p class="card-text">
+
+      <ul class="list-inline">
+        {%for tag in activity.tags.all%}
+            <li class="list-inline-item" >
+            <a href="/activities/tag/{{tag.slug}}" class="badge">{{tag.name}}</a></li>
+        {%endfor%}
+    </ul>
+
+  {{activity.preamble|safe|truncatechars:82 }}
+    </p>
+ 
+  {% if request.user.is_authenticated %}
+  <a href="/admin/tools/activity/{{activity.id}}/change/" class="badge badge-primary">Edit</a>
+   
+   <br>
+  {%endif%}
+
+  </p>
+       </div>
+    </div>
+  {%endfor%}
+ </div>
+  </p>
+</div>
+
+{% endblock %}

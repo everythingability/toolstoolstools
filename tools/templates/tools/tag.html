@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+
+{%block title%} {{tag.name}} {%endblock%}
+
+{% block content %}
+
+<div>
+  
+  <p>
+   <h3> {{tag.name}}</h3>
+  <div class="card flex-row flex-wrap">
+   
+
+    
+  {% for tool in tools %}
+   <div class="card" style="width: 20rem;">
+   <a href="{{tool.url}}" target="_blank">
+   {%if tool.image_url%}
+      <img class="card-img-top" 
+      src="{{tool.image_url}}" 
+      alt="Card image cap" height="200"
+      target="_blank">{%endif%}
+      </a>
+  <div class="card-body">
+          <p class="card-text">
+  <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
+
+     <ul class="list-inline">
+        {%for tag in tool.tags.all%}
+            <li class="list-inline-item" class="badge badge-primary">
+            <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+        {%endfor%}
+    </ul>
+
+  {{tool.about|safe}}
+
+  <br>
+  {% if request.user.is_authenticated %}
+   <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <br>
+  {%endif%}
+ 
+  </p>
+       </div>
+    </div>
+  {%endfor%}
+ </div>
+  </p>
+</div>
+
+{% endblock %}
