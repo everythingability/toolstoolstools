@@ -25,7 +25,8 @@ SECRET_KEY = 'seuj2&zwro$%ifqx3lyr513m#639)edj4i^4(*e0_i=l&sp1r8'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'rhubarbistan.appspot.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'rhubarbistan.appspot.com',
+'https://everythingability-toolstoolstools.glitch.me/']
 
 
 # https://github.com/adamchainz/django-cors-headers
