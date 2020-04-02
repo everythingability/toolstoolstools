@@ -33,8 +33,12 @@ h1.activity{
     margin: 0 auto;
     margin-left:50px;
     margin-bottom:100px;
-   width: 50%;
+    width: 50%;
 
+}
+.lead{
+    font-size: 1.2em;
+    font-weight: 400;
 }
 
 .searchbutton{

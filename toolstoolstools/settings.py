@@ -132,7 +132,8 @@ STATIC_ROOT = BASE_DIR + "/static"
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
-   os.path.join(BASE_DIR, 'admin')
+   os.path.join(BASE_DIR, 'admin'),
+   os.path.join(BASE_DIR, 'css'),
 ]
 print("STATIC_ROOT", STATIC_ROOT)
 

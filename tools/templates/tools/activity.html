@@ -29,9 +29,9 @@
   
     <h1 class="text-image">{{activity.name}}</h1>
 
-  <p class="lead ">
+  <div class="lead">
     {{activity.preamble|safe}}
-   </p>
+   </div>
 
     <ul class="list-inline">
         {%for tag in tool.tags.all%}
@@ -70,12 +70,12 @@
                         alt="Card image cap" height="150"
                     ></a>
 
-                    <p class="card-text"> 
+                    <div class="card-text"> 
                         <b>{{item.name}}</b>
                         <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
                         <br>
                         {{item.about|safe}}
-                    </p>
+                    </div>
                 </div>
             </div>
   {%endfor%}
@@ -88,7 +88,7 @@
 <h3>Resources</h3>
 {%endif%}
 
-{{activity.resources_text|safe}}
+{{activity.resource_text|safe}}
 
  <div class="card flex-row flex-wrap">
    {%for item in activity.resources.all%}
@@ -116,7 +116,7 @@
 <h3>Tools</h3>
 {%endif%}
 
-{{activity.tools_text|safe}}
+{{activity.tool_text|safe}}
 
  <div class="card flex-row flex-wrap">
    {%for item in activity.tools.all%}

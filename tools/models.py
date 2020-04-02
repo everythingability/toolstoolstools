@@ -127,6 +127,13 @@ class Resource(models.Model):
 		return format_html(u'<img src="{}" width="100"/>', self.image_url)
 	_get_linked_thumbnail.allow_tags = True
 
+	def save(self, *args, **kwargs):
+		if "https://www.youtube.com/watch?v" in self.url:
+			qs = self.url.split('?')
+			video_id = parse_qs(qs[1])['v'][0]
+			self.image_url = "http://img.youtube.com/vi/%s/0.jpg" % video_id
+
+
 	def __str__(self):
 		return self.name + ": " + self.url
 
