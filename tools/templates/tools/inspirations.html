@@ -1,39 +1,43 @@
 {% extends "_base.html" %}
 
-{%block title%} Tool {%endblock%}
+{%block title%} inspirational stuff {%endblock%}
 
 {% block content %}
 
 <div>
   
-  <p>
+<br>
+     <b>{{banner.preamble|safe}}</b>
+     <br>
+      <b>{{banner.text|safe}}</b>
+      
   <div class="card flex-row flex-wrap">
 
-  {% for tool in tools %}
-   <div class="card" style="width: 300px">
-   <a href="{{tool.url}}" target="_blank">
-   {%if tool.image_url%}
+  {% for inspiration in inspirations %}
+   <div class="card" style="width: 15rem;">
+   <a href="{{inspiration.url}}" target="_blank">
+   {%if inspiration.image_url%}
       <img class="card-img-top" 
-      src="{{tool.image_url}}" 
+      src="{{inspiration.image_url}}" 
       alt="Card image cap" height="160"
       target="_blank">{%endif%}
       </a>
   <div class="card-body">
           <p class="card-text">
-  <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
+  <h3><a href="{{inspiration.url}}" target="_blank">{{inspiration.name}}</a></h3>
 
      <ul class="list-inline">
-        {%for tag in tool.tags.all%}
+        {%for tag in inspiration.tags.all%}
             <li class="list-inline-item" class="badge badge-primary">
             <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
     </ul>
 
-  {{tool.about|safe}}
+  {{inspiration.about|safe|striptags|truncatechars:44 }}
 
   <br>
   {% if request.user.is_authenticated %}
-   <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <a href="/admin/tools/inspiration/{{inspiration.id}}/change/" class="badge badge-primary">Edit</a>
    <br>
   {%endif%}
  

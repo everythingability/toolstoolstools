@@ -5,7 +5,7 @@ from django.contrib.admin.widgets import FilteredSelectMultiple
 from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
-from .models import Tool, Category, Tag, Resource, Level, Inspiration, Activity, Learning
+from .models import Tool, Category, Tag, Resource, Level, Inspiration, Activity, Learning, Page
 
 from django.contrib import admin
 
@@ -51,7 +51,13 @@ class ResourceAdmin(admin.ModelAdmin):
 	filter_horizontal = ('tags',)
 	exclude = ['category', 'altcategory',]
 
+class PageAdmin(admin.ModelAdmin):
+	#fields = ('name', )
+   
+	list_display = ('name', )
 
+	search_fields = ['name', "text"]
+admin.site.register(Page, PageAdmin)
 
 
 
@@ -65,8 +71,6 @@ class ToolAdmin(admin.ModelAdmin):
 	filter_horizontal = ('tags','learnings')
 	actions = ['make_fun',]
 
-
-
 	def make_fun(modeladmin, request, queryset):
 		level = Level.objects.filter(name="Anyone/Fun").first()
 		print(level)
@@ -76,7 +80,7 @@ class ToolAdmin(admin.ModelAdmin):
 class InspirationAdmin(admin.ModelAdmin):
 	#fields = ('name', )
    
-	list_display = ('name','_get_link', "_get_thumbnail" )
+	list_display = ('name','tags_as_list', '_get_link', "_get_thumbnail" )
 	list_filter = ('tags',)
 	search_fields = ['name', "about"]
 	filter_horizontal = ('tags',)
@@ -115,12 +119,12 @@ get_picture_preview.short_description = "Picture Preview"
 
 class ActivityAdmin(admin.ModelAdmin):
 	exclude =      ('slug', )
-	list_display = (  'name', 'tags_as_list','is_published', '_get_link')
+	list_display = (  'name', 'tags_as_list','level','is_published', '_get_link')
 	list_filter =  ('is_published','level','tags',)
 	search_fields = ['name', "preamble", "inspiration_text","resource_text", "tool_text"]
 	filter_horizontal = ('tags','inspirations','resources','tools', "learnings")
 	readonly_fields = [ "preview_image", ]
-	actions = ['publish',]
+	actions = ['publish','set_fun','set_beginner', 'set_learner','set_expert']
 
 	def preview_image(self, obj):
 		return mark_safe('<img src="{url}" width="{width}" height={height} />'.format(
@@ -132,5 +136,31 @@ class ActivityAdmin(admin.ModelAdmin):
 	def publish(modeladmin, request, queryset):
 		queryset.update(is_published=True)
 	publish.short_description = "Publish"
+
+	'''
+	Anyone/Fun
+	Beginner/ Easy
+	Intermediate/Learner
+	Expert'''
+
+	def set_fun(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Anyone/Fun").first()
+		queryset.update(level=level)
+	set_fun.short_description = "Set to Anyone/Fun"
+
+	def set_beginner(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Beginner/Easy").first()
+		queryset.update(level=level)
+	set_beginner.short_description = "Set to Beginner/Easy"
+
+	def set_learner(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Intermediate/Learner").first()
+		queryset.update(level=level)
+	set_learner.short_description = "Set to Intermediate/Learner"
+
+	def set_expert(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Expert").first()
+		queryset.update(level=level)
+	set_expert.short_description = "Set to Expert"
 
 admin.site.register(Activity, ActivityAdmin)

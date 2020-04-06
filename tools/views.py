@@ -6,15 +6,17 @@ from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
 
-from .models import Tool, Category, Activity, Tag
+from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page
 
 # Create your views here.
 def index(request):
     activities = Activity.objects.filter(is_published=True)
-
+    levels = Level.objects.all()
+    banner = Page.objects.filter(slug="welcome-banner").first()
     return render(request, "tools/activities.html", 
             {'activities': activities,
-
+            'levels':levels, 
+            'banner':banner
             } )
 
 def view(request, slug):
@@ -22,17 +24,28 @@ def view(request, slug):
 
     return render(request, "tools/activity.html", {'activity': activity} )
 
+def page(request, slug):
+    page = Page.objects.filter(slug=slug).first()
+    return render(request, "tools/page.html", {'page': page,} )
+
 def tag(request, tag):
     tag = Tag.objects.filter(slug=tag).first()
 
     tools = Tool.objects.filter(tags=tag)
+    inspirations = Inspiration.objects.filter(tags=tag)
 
-    return render(request, "tools/tag.html", {'tag': tag, 'tools':tools} )
+    return render(request, "tools/tag.html", {'tag': tag, 'tools':tools, 'inspirations':inspirations} )
 
 def tools(request):
     tools = Tool.objects.all()
+    banner = Page.objects.filter(slug="tools").first()
+    return render(request, "tools/tools.html", {'tools': tools,  'banner':banner} )
 
-    return render(request, "tools/tools.html", {'tools': tools} )
+def inspirations(request):
+    banner = Page.objects.filter(slug="inspirations").first()
+    inspirations = Inspiration.objects.all()
+
+    return render(request, "tools/inspirations.html", {'inspirations': inspirations,  'banner':banner} )
 
 from django.contrib.auth import logout
 from django.http import JsonResponse
@@ -48,12 +61,14 @@ def search(request):
     tools = []
     tags =[]
     activities = []
+    inspirations =[]
     if query:
-        tools = Tool.objects.filter(Q(name__contains=query)|Q(about__contains=query))
+        tools = Tool.objects.filter( Q(name__contains=query)|Q(about__contains=query) )
         tags = Tag.objects.filter(slug__contains=tag).first()
+        inspirations = Inspiration.objects.filter(Q(name__contains=query)|Q(about__contains=query) )
         activities = Activity.objects.filter(Q(name__contains=query)|Q(preamble__contains=query))
 
-    results = results + list(tools)  + list(activities)
+    results = results   + list(activities) + list(tools) +list(inspirations)
 
     return render(request, "tools/searchresults.html", {'results': results,} )
 

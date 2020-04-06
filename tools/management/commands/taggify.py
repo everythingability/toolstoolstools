@@ -1,5 +1,5 @@
 from django.core.management.base import BaseCommand, CommandError
-from tools.models import Tool,Category, Tag, Resource
+from tools.models import Tool,Category, Tag, Resource, Inspiration
 import os
 import csv
 
@@ -14,7 +14,7 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         #filename  = options['file']
         try:
-            tools = Tool.objects.all()
+            '''tools = Tool.objects.all()
 
             for tool in tools:
                 print( tool.name, tool.category,tool.altcategory )
@@ -34,7 +34,20 @@ class Command(BaseCommand):
                 resource.tags.add(tag)
                 tag, created = Tag.objects.get_or_create(name=resource.altcategory.name)
                 resource.tags.add(tag)
-                resource.save()
+                resource.save()'''
+            insps = Inspiration.objects.all()
+
+            for insp in insps:
+                print( insp.name, insp.category,insp.altcategory )
+                if insp.category:
+                    tag, created = Tag.objects.get_or_create(name=insp.category.name)
+                    insp.tags.add(tag)
+
+                if insp.altcategory:
+                    tag, created = Tag.objects.get_or_create(name=insp.altcategory.name)
+                    insp.tags.add(tag)
+
+                insp.save()
    
 
         except Exception as err:

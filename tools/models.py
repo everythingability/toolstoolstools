@@ -9,6 +9,30 @@ from urllib.parse import urlparse
 from tinymce.models import HTMLField
 from urllib.parse import parse_qs
 
+# Not just pages but also text fragements used throughout the site
+class Page(models.Model):
+	slug = models.SlugField(null=True, blank=True, default='')
+	name = models.CharField(max_length=100)
+	preamble = HTMLField(default='', null=True, blank=True)
+	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	youtube = models.URLField(max_length=250, null=True, default='', blank=True)
+
+	text = HTMLField(null=True, blank=True, default='')
+		#Can make upload folders personal
+	image = models.ImageField(upload_to ='', 
+			height_field=None, width_field=None, max_length=250,
+			blank=True, default=None, null=True)
+
+	
+	
+
+	class Meta:
+		ordering = ['name',]
+
+	def __str__(self):
+		return self.name
+
+
 class Tag(models.Model):
 	slug = models.SlugField(null=True, blank=True, default='')
 	name = models.CharField(max_length=100)
@@ -46,7 +70,7 @@ class Level(models.Model):
 
 	name = models.CharField(max_length=100)
 	order = models.IntegerField(null=False, default=0)
-	text = models.TextField(blank=True)
+	text = HTMLField(blank=True)
 
 	def __str__(self):
 		return self.name
@@ -61,10 +85,10 @@ class Tool(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='')
-	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
 	about = HTMLField(default='', null=True, blank=True)
 	#HTMLField
-	tags = models.ManyToManyField(Tag, blank=True, null=True )
+	tags = models.ManyToManyField(Tag, blank=True,  )
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="category1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="category2")
 	web_based = models.BooleanField(null=True, blank=True, default=True)
@@ -72,12 +96,13 @@ class Tool(models.Model):
 	mobile = models.BooleanField(null=True, blank=True, default=False)
 	requires_registration = models.BooleanField(null=True, blank=True, default=True)
 	level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True,null=True, related_name="level")
-	learnings = models.ManyToManyField( 'Learning', blank=True, null=True )
+	learnings = models.ManyToManyField( 'Learning', blank=True, )
 	created_date = models.DateTimeField(auto_now_add=True)
 	modified_date = models.DateTimeField(auto_now=True)
 
 	class Meta:
 		ordering = ('name',)
+		
 	def tags_as_list(self):
 		# Children query
 		s = ''
@@ -85,7 +110,9 @@ class Tool(models.Model):
 			s = s + str(g.name) + " , "
 		return str(    s   )
 
-
+	def save(self, *args, **kwargs):
+		self.slug = slugify(self.name)
+		super(Tool, self).save(*args, **kwargs)
 
 
 	def _get_thumbnail(self):
@@ -109,9 +136,9 @@ class Resource(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='')
-	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
 	about = HTMLField(default='', null=True, blank=True)
-	tags = models.ManyToManyField(Tag, blank=True, null=True)
+	tags = models.ManyToManyField(Tag, blank=True, )
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="rcategory1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="rcategory2")
 
@@ -141,9 +168,9 @@ class Inspiration(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='')
-	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
 	about = HTMLField(default='', null=True, blank=True)
-	tags = models.ManyToManyField(Tag, blank=True, null=True)
+	tags = models.ManyToManyField(Tag, blank=True,)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="icategory1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="icategory2")
 
@@ -151,9 +178,13 @@ class Inspiration(models.Model):
 		return format_html(u'<img src="{}" width="150"/>', self.image_url)
 	_get_thumbnail.allow_tags = True
 
+	def _get_edit_link(self):
+		return format_html(u'<a href="/admin/tools/inspiration/{}/change/" target="_blank"/>{}</a>', self.id, "view")
+	_get_edit_link.allow_tags = True
+
 	def _get_link(self):
 		
-		return format_html(u'<a href="/admin/tools/inspiration/{}/change/" target="_blank"/>{}</a>', self.id, "view")
+		return format_html(u'<a href="{}" target="_blank"/>{}</a>', self.url, "view")
 	_get_link.allow_tags = True
 
 	def _get_linked_thumbnail(self):
@@ -172,11 +203,18 @@ class Inspiration(models.Model):
 
 		super(Inspiration, self).save(*args, **kwargs)
 
+	def tags_as_list(self):
+		# Children query
+		s = ''
+		for g in self.tags.all():
+			s = s + str(g.name) + " , "
+		return str(    s   )
+
 class Learning(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='', help_text="If this is a Youtube URL, the video's thumbnail will be automatically used.")
-	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
 	#youtube_url = models.URLField(max_length=250, null=True, default='', blank=True)
 
 	about =HTMLField(default='', null=True, blank=True)
@@ -224,9 +262,10 @@ class Activity(models.Model):
 
 	youtube = models.URLField(max_length=250, null=True, default='', blank=True)
 	preamble = HTMLField(default='', null=True, blank=True)
+
 	level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True,null=True, related_name="alevel")
 	
-	tags = models.ManyToManyField(Tag,null=True, blank=True)
+	tags = models.ManyToManyField(Tag,blank=True)
 	
 	inspiration_text = HTMLField(default='', null=True, blank=True)
 	inspirations = models.ManyToManyField(Inspiration,blank=True)
@@ -237,8 +276,8 @@ class Activity(models.Model):
 	tool_text = HTMLField(default='', null=True, blank=True)
 	tools = models.ManyToManyField( Tool, blank=True )
 
-	learning_text = HTMLField(default='', null=True, blank=True)
-	learnings = models.ManyToManyField( Learning, blank=True, null=True, default=None )
+	learning_text = HTMLField(default='',  blank=True)
+	learnings = models.ManyToManyField( Learning, blank=True, default=None )
 
 	conclusion = HTMLField(default='', null=True, blank=True)
 	is_published = models.BooleanField(null=True, blank=True, default=False)

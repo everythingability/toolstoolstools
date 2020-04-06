@@ -36,7 +36,7 @@
 
   <br>
   {% if request.user.is_authenticated %}
-   <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <a href="/admin/tools/inspirations/{{insp.id}}/change/" class="badge badge-primary">Edit</a>
    <br>
   {%endif%}
  
@@ -44,6 +44,41 @@
        </div>
     </div>
   {%endfor%}
+
+     {% for insp in inspirations %}
+   <div class="card" style="width: 20rem;">
+   <a href="{{insp.url}}" target="_blank">
+   {%if insp.image_url%}
+      <img class="card-img-top" 
+      src="{{insp.image_url}}" 
+      alt="Card image cap" height="200"
+      target="_blank">{%endif%}
+      </a>
+  <div class="card-body">
+          <p class="card-text">
+  <h3><a href="{{insp.url}}" target="_blank">{{insp.name}}</a></h3>
+
+     <ul class="list-inline">
+        {%for tag in insp.tags.all%}
+            <li class="list-inline-item" class="badge badge-primary">
+            <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+        {%endfor%}
+    </ul>
+
+  {{insp.about|safe}}
+
+   <br>
+  {% if request.user.is_authenticated %}
+   <a href="/admin/tools/inspiration/{{insp.id}}/change/" class="badge badge-primary">Edit</a>
+   <br>
+  {%endif%}
+ 
+  </p>
+       </div>
+    </div>
+  {%endfor%}
+
+
  </div>
   </p>
 </div>

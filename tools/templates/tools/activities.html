@@ -3,11 +3,64 @@
 {%block title%} Home {%endblock%}
 
 {% block content %}
+<script>
+$(document).ready(function () {
+     $('.level_text').hide(); //hide all items
 
+    $('#filters :checkbox').click(function () {
+        if ($('input:checkbox:checked').length) {
+            console.log("hide all")
+           
+            $('.item').hide(); //hide all items
+            $('.level_text').hide(); //hide all items
+
+            $('input:checkbox:checked').each(function () {
+                var selector = '.level_'+ $(this).val() 
+                console.log("show", selector)
+                $( selector ).show();
+
+                var text_selector = '#level_'+ $(this).val() +"_text"
+                console.log("show", text_selector)
+                $( text_selector ).show();
+            });
+
+        } else {
+            console.log("show")
+            $(".item").show(); //show them all
+            $('.level_text').hide(); //hide all items
+        }
+        //count how many are showing...
+       var visible_items = $('.item:visible').length 
+       $("#activities_count").text(visible_items + " activities")
+    });
+    
+});
+</script>
+
+<br>
+     <b>{{banner.preamble|safe}}</b>
+     <br>
+      <b>{{banner.text|safe}}</b>
+
+    <section id="filters">
+        <p id="fHeader"><b>Filter Level</b>
+        {%for level in levels%}
+            <input type="checkbox" name="{{level.name}}" value="{{level.id}}" id="{{level.id}}" /> {{level.name}} 
+            &nbsp; &nbsp; &nbsp;
+        {%endfor%}
+
+        {%for level in levels%}
+           <div id="level_{{level.id}}_text" class="level_text">
+           <b> {{level.name}}</b>:{{level.text|safe}}</div>
+        {%endfor%}
+        </p>
+       <p id="activities_count"></p>
+    </section>
+    <br><br>
 
 <div class="card flex-row flex-wrap">
     {% for activity in activities %}
-        <div class="card" style="width: 15rem;">
+        <div class="card item level_{{activity.level.id}}" style="width: 300px">
           <a href="{{activity.url}}" >
 
           {% if activity.image %}
