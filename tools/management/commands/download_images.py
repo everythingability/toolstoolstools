@@ -31,8 +31,9 @@ class Command(BaseCommand):
                             
                             fullpath = '/Users/tomsmith/toolstoolstools/toolstoolstools/tools/static/images/' +fname #hack
                             print(fullpath)
-                            response = requests.get(url, stream=True)
+                            response = requests.get(url, stream=False)
                             with open( fullpath , 'wb') as out_file:
+                                response.raw.decode_content = True
                                 shutil.copyfileobj(response.raw, out_file)
                             del response
 

@@ -7,14 +7,14 @@
 $(document).ready(function () {
      $('.level_text').hide(); //hide all items
 
-    $('#filters :checkbox').click(function () {
-        if ($('input:checkbox:checked').length) {
+    $('#filters :radio').click(function () {
+        if ($('input:radio:checked').length) {
             console.log("hide all")
            
             $('.item').hide(); //hide all items
             $('.level_text').hide(); //hide all items
 
-            $('input:checkbox:checked').each(function () {
+            $('input:radio:checked').each(function () {
                 var selector = '.level_'+ $(this).val() 
                 console.log("show", selector)
                 $( selector ).show();
@@ -36,22 +36,43 @@ $(document).ready(function () {
     
 });
 </script>
+<style>
+#filters{
+    text-align: center;
+
+}
+#banner{
+    text-align: center;
+}
+#banner #title p{
+    font-size: 42px;
+}
+#banner #text p{
+    font-style: italic;
+}
+</style>
 
 <br>
-     <b>{{banner.preamble|safe}}</b>
-     <br>
-      <b>{{banner.text|safe}}</b>
+<div id="banner">
+     <b id="title">{{banner.preamble|safe}}</b>
+     
+      <b id="text">{{banner.text|safe}}</b>
+</div>
 
     <section id="filters">
-        <p id="fHeader"><b>Filter Level</b>
-        {%for level in levels%}
-            <input type="checkbox" name="{{level.name}}" value="{{level.id}}" id="{{level.id}}" /> {{level.name}} 
-            &nbsp; &nbsp; &nbsp;
-        {%endfor%}
+        <p id="fHeader">
+         <fieldset id="group1">
+            <input type="radio" name="level" value="all" id="all" checked/> All &nbsp; &nbsp; &nbsp;
+            {%for level in levels%}
+                <input type="radio" name="level" value="{{level.id}}" id="{{level.id}}" /> {{level.name}} 
+                &nbsp; &nbsp; &nbsp;
+            {%endfor%}
+        </fieldset>
 
         {%for level in levels%}
            <div id="level_{{level.id}}_text" class="level_text">
-           <b> {{level.name}}</b>:{{level.text|safe}}</div>
+           <br>
+           <!--b> {{level.name}}</b-->{{level.text|safe}}</div>
         {%endfor%}
         </p>
        <p id="activities_count"></p>
@@ -60,7 +81,7 @@ $(document).ready(function () {
 
 <div class="card flex-row flex-wrap">
     {% for activity in activities %}
-        <div class="card item level_{{activity.level.id}}" style="width: 300px">
+        <div class="card item level_{{activity.level.id}} level_all" style="width: 300px">
           <a href="{{activity.url}}" >
 
           {% if activity.image %}
