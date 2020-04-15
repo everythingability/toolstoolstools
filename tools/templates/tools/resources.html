@@ -1,45 +1,47 @@
 {% extends "_base.html" %}
 
-{%block title%} Tool {%endblock%}
+{%block title%} resource {%endblock%}
 
 {% block content %}
+
   
 <div id="banner">
      <h3>{{banner.preamble|safe}}</h3>
-     <br>
       <b>{{banner.text|safe}}</b>
 </div>
 
 <div>
   
-  <p>
+ 
   <div class="card flex-row flex-wrap">
 
-  {% for tool in tools %}
+  {% for resource in resources %}
    <div class="card" style="width: 300px">
-   <a href="{{tool.url}}" target="_blank">
-   {%if tool.image_url%}
+   <a href="{{resource.url}}" target="_blank">
+   {%if resource.image_url%}
       <img class="card-img-top" 
-      src="{{tool.image_url}}" 
+      src="{{resource.image_url}}" 
       alt="Card image cap" height="160"
       target="_blank">{%endif%}
       </a>
   <div class="card-body">
-          <p class="card-text">
-  <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
+  
+  <p class="card-text">
+  <h3><a href="{{resource.url}}" target="_blank">{{resource.name}}</a></h3>
 
      <ul class="list-inline">
-        {%for tag in tool.tags.all%}
+        {%for tag in resource.tags.all%}
             <li class="list-inline-item" class="badge badge-primary">
             <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
     </ul>
 
-  {{tool.about|safe}}
+    {{resource.about|safe}}
 
-  <br>
+    <br>
+  </p>
   {% if request.user.is_authenticated %}
-   <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <a href="/admin/tools/resource/{{resource.id}}/change/" class="badge badge-primary">Edit</a>
    <br>
   {%endif%}
  

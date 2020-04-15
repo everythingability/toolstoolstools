@@ -54,7 +54,7 @@ $(document).ready(function () {
 
 <br>
 <div id="banner">
-     <b id="title">{{banner.preamble|safe}}</b>
+     <h3>{{banner.preamble|safe}}</h3>
      
       <b id="text">{{banner.text|safe}}</b>
 </div>
@@ -82,7 +82,7 @@ $(document).ready(function () {
 <div class="card flex-row flex-wrap">
     {% for activity in activities %}
         <div class="card item level_{{activity.level.id}} level_all" style="width: 300px">
-          <a href="{{activity.url}}" >
+          <a href="/activities/view/{{activity.slug}}">
 
           {% if activity.image %}
                   <img class="card-img-top" 

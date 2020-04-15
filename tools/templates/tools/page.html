@@ -4,13 +4,16 @@
 
 {% block content %}
 
+
+<div id="banner">
+     <h3>{{page.name}}</h3>
+      <b>{{page.preamble|safe}}</b>
+       <br>
+ {{page.text|safe}}
+</div>
+
 <div>
   
-  <p>
-   <h3> {{page.name}}</h3>
- <b> {{page.preamble|safe}}</b>
- <br><br>
- {{page.text|safe}}
 
 
 

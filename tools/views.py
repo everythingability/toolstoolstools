@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
 
-from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page
+from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page, Resource
 
 # Create your views here.
 def index(request):
@@ -33,11 +33,17 @@ def tag(request, tag):
 
     tools = Tool.objects.filter(tags=tag)
     inspirations = Inspiration.objects.filter(tags=tag)
+    resources = Resource.objects.filter(tags=tag)
 
-    return render(request, "tools/tag.html", {'tag': tag, 'tools':tools, 'inspirations':inspirations} )
+    return render(request, "tools/tag.html", {'tag': tag, 'tools':tools, 'inspirations':inspirations,'resources':resources} )
+def tags(request):
+    banner = Page.objects.filter(slug="tags").first()
+    tags = Tag.objects.all()
+
+    return render(request, "tools/tags.html", {'tags': tags,  'banner':banner} )
 
 def tools(request):
-    tools = Tool.objects.all()
+    tools = Tool.objects.all().order_by('?')
     banner = Page.objects.filter(slug="tools").first()
     return render(request, "tools/tools.html", {'tools': tools,  'banner':banner} )
 
@@ -46,6 +52,13 @@ def inspirations(request):
     inspirations = Inspiration.objects.all()
 
     return render(request, "tools/inspirations.html", {'inspirations': inspirations,  'banner':banner} )
+
+def resources(request):
+    banner = Page.objects.filter(slug="resources").first()
+    resources = Resource.objects.all()
+
+    return render(request, "tools/resources.html", {'resources': resources,  'banner':banner} )
+
 
 from django.contrib.auth import logout
 from django.http import JsonResponse

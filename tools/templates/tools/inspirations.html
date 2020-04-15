@@ -4,17 +4,18 @@
 
 {% block content %}
 
-<div>
+
   
-<br>
-     <b>{{banner.preamble|safe}}</b>
+<div id="banner">
+     <h3>{{banner.preamble|safe}}</h3>
      <br>
       <b>{{banner.text|safe}}</b>
-      
+</div>
+
   <div class="card flex-row flex-wrap">
 
   {% for inspiration in inspirations %}
-   <div class="card" style="width: 15rem;">
+   <div class="card" style="width: 300px;">
    <a href="{{inspiration.url}}" target="_blank">
    {%if inspiration.image_url%}
       <img class="card-img-top" 
