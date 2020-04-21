@@ -140,7 +140,9 @@
 </div> 
  <br> <br>
 
+{% if activity.learning_text %}
  <h3>Learning</h3>
+ {% endif %}
 
  {{activity.learning_text|safe}}
 

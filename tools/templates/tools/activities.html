@@ -114,14 +114,15 @@ $(document).ready(function () {
                 <ul class="list-inline">
                   {%for tag in activity.tags.all%}
                       <li class="list-inline-item" >
-                      <a href="/activities/tag/{{tag.slug}}" class="badge">{{tag.name}}</a></li>
+                      <a href="/activities/tag/{{tag.slug}}" class="badge badge-primary">{{tag.name}}</a></li>
                   {%endfor%}
+                     <li class="badge badge-light">{{activity.level.name}}</li>
                   </ul>
 
                 {{activity.preamble|safe|striptags|truncatechars:82 }}
     
                   {% if request.user.is_authenticated %}
-                    <a href="/admin/tools/activity/{{activity.id}}/change/" class="badge badge-primary">Edit</a> 
+                    <a href="/admin/tools/activity/{{activity.id}}/change/" class="badge badge-success">Edit</a> 
                   <br>
                   {%endif%}
                </div> <!-- end card text-->
