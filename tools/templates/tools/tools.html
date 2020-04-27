@@ -10,28 +10,30 @@
       <b>{{banner.text|safe}}</b>
 </div>
 
-<div>
+ 
   
-  <p>
   <div class="card flex-row flex-wrap">
 
   {% for tool in tools %}
    <div class="card" style="width: 300px">
    <a href="{{tool.url}}" target="_blank">
+   
    {%if tool.image_url%}
       <img class="card-img-top" 
       src="{{tool.image_url}}" 
-      alt="Card image cap" height="160"
-      target="_blank">{%endif%}
+      alt="Card image cap" height="150"
+      target="_blank">
+    {%endif%}
       </a>
+
   <div class="card-body">
           <p class="card-text">
   <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
 
      <ul class="list-inline">
         {%for tag in tool.tags.all%}
-            <li class="list-inline-item" class="badge badge-primary">
-            <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+            <li class="list-inline-item">
+            <a class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
     </ul>
 
@@ -43,12 +45,12 @@
    <br>
   {%endif%}
  
-  </p>
+ 
        </div>
     </div>
   {%endfor%}
- </div>
-  </p>
+
+
 </div>
 
 {% endblock %}

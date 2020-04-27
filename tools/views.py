@@ -31,11 +31,13 @@ def page(request, slug):
 def tag(request, tag):
     tag = Tag.objects.filter(slug=tag).first()
 
-    tools = Tool.objects.filter(tags=tag)
-    inspirations = Inspiration.objects.filter(tags=tag)
-    resources = Resource.objects.filter(tags=tag)
+    tools = Tool.objects.filter(tags=tag).order_by('?')
+    inspirations = Inspiration.objects.filter(tags=tag).order_by('?')
+    resources = Resource.objects.filter(tags=tag).order_by('?')
 
     return render(request, "tools/tag.html", {'tag': tag, 'tools':tools, 'inspirations':inspirations,'resources':resources} )
+
+
 def tags(request):
     banner = Page.objects.filter(slug="tags").first()
     tags = Tag.objects.all()
@@ -83,7 +85,7 @@ def search(request):
 
     results = results   + list(activities) + list(tools) +list(inspirations)
 
-    return render(request, "tools/searchresults.html", {'results': results,} )
+    return render(request, "tools/searchresults.html", {'results': results,'query':query} )
 
 
 

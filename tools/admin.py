@@ -1,17 +1,18 @@
 from django.contrib import admin
-from django.contrib.contenttypes.admin import  GenericTabularInline
-from django.contrib.admin.widgets import FilteredSelectMultiple
-
-from django.utils.html import format_html_join
-from django.utils.safestring import mark_safe
-
-from .models import Tool, Category, Tag, Resource, Level, Inspiration, Activity, Learning, Page
-
-from django.contrib import admin
-
 admin.site.site_header = "DIGITAL CREATIVITY"
 admin.site.site_title = "DC Admin"
 admin.site.index_title = "Welcome to DC Admin"
+from django.contrib import admin
+from django.contrib.contenttypes.admin import  GenericTabularInline
+from django.contrib.admin.widgets import FilteredSelectMultiple
+from django.utils.html import format_html_join
+from django.utils.safestring import mark_safe
+
+
+from .models import Tool, Category, Tag, Resource, Level, Inspiration, Activity, Learning, Page
+
+
+
 
 
 

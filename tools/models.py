@@ -40,8 +40,12 @@ class Tag(models.Model):
 	#content_type = models.ForeignKey(ContentType, on_delete=models.CASCADE, related_name="type")
 	#object_id = models.PositiveIntegerField()
 	#content_object = GenericForeignKey('content_type', 'object_id')
+	
 	class Meta:
 		ordering = ['name',]
+
+	def ltype(self):
+		return self.__class__.__name__.lower()
 
 	def __str__(self):
 		return self.name
@@ -108,7 +112,10 @@ class Tool(models.Model):
 
 	class Meta:
 		ordering = ('name',)
-		
+
+	def ltype(self):
+		return self.__class__.__name__.lower()
+
 	def tags_as_list(self):
 		# Children query
 		s = ''
@@ -148,6 +155,9 @@ class Resource(models.Model):
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="rcategory1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="rcategory2")
 
+	def ltype(self):
+		return self.__class__.__name__.lower()
+
 	def get_thumbnail(self):
 		return format_html(u'<img src="{}" width="150"/>', self.image_url)
 	get_thumbnail.allow_tags = True
@@ -175,6 +185,9 @@ class Inspiration(models.Model):
 	tags = models.ManyToManyField(Tag, blank=True,)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="icategory1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="icategory2")
+
+	def ltype(self):
+		return self.__class__.__name__.lower()
 
 	def _get_thumbnail(self):
 		return format_html(u'<img src="{}" width="150"/>', self.image_url)
@@ -223,6 +236,9 @@ class Learning(models.Model):
 	tags = models.ManyToManyField(Tag)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="lcategory1")
 	altcategory = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="lcategory2")
+
+	def ltype(self):
+		return self.__class__.__name__.lower()
 
 	def _get_thumbnail(self):
 		return format_html(u'<img src="{}" width="150"/>', self.image_url)
@@ -291,6 +307,9 @@ class Activity(models.Model):
 		''
 		ordering = ('-modified_date',)
 
+	def ltype(self):
+		return self.__class__.__name__.lower()
+
 	def tags_as_list(self):
 		# Children query
 		s = ''
@@ -302,6 +321,8 @@ class Activity(models.Model):
 		self.slug = slugify(self.name)
 		super(Activity, self).save(*args, **kwargs)
 
+	def url(self):
+		return "/activities/view/" + self.slug
 
 	def _get_thumbnail(self):
 		return format_html(u'<img src="{}" width="150"/>', self.image_url)

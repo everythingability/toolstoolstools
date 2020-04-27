@@ -1,39 +1,61 @@
 {% extends "_base.html" %}
 
-{%block title%} result {%endblock%}
+{%block title%} {{query}} - Search Results {%endblock%}
 
 {% block content %}
 
 <div>
-  
+  <h3>{{query}}</h3>
   <p>
   <div class="card flex-row flex-wrap">
 
   {% for result in results %}
    <div class="card" style="width: 20rem;">
    <a href="{{result.url}}" target="_blank">
-   {%if result.image_url%}
-      <img class="card-img-top" 
-      src="{{result.image_url}}" 
-      alt="Card image cap" height="200"
-      target="_blank">{%endif%}
+  
+  {% if result.image_url %}
+                  <img class="card-img-top" 
+                  src="{{result.image_url}}" 
+                  alt="Card image cap" height="150"
+                  target="_blank">
+
+          {% elif result.tools.all.count > 0 %}
+              <img class="card-img-top" 
+                  src="{{result.tools.first.image_url}}" 
+                  alt="Card image cap" height="150"
+                  target="_blank">
+          
+          {%else%}
+              <img class="card-img-top" 
+                  src="/static/default_activity.png" 
+                  alt="Card image cap" height="150"
+                  target="_blank">
+         {%endif%}
+
+
       </a>
   <div class="card-body">
           <p class="card-text">
-  <h3><a href="{{result.url}}" target="_blank">{{result.name}}</a></h3>
+  
 
+  <h3>
+ 
+      <a href="{{result.url}}" target="_blank">{{result.name}}</a>
+   
+  </h3>
      <ul class="list-inline">
         {%for tag in result.tags.all%}
-            <li class="list-inline-item" class="badge badge-primary">
-            <a href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+            <li class="list-inline-item" >
+            <a class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
+        <li class="badge badge-light" >{{result.ltype}}</li>
     </ul>
 
   {{result.about|safe}}
 
   <br>
   {% if request.user.is_authenticated %}
-   <a href="/admin/results/result/{{result.id}}/change/" class="badge badge-primary">Edit</a>
+   <a href="/admin/tools/{{result.ltype}}/{{result.id}}/change/" class="badge badge-primary">Edit</a>
    <br>
   {%endif%}
  
