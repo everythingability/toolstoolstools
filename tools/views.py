@@ -51,13 +51,13 @@ def tools(request):
 
 def inspirations(request):
     banner = Page.objects.filter(slug="inspirations").first()
-    inspirations = Inspiration.objects.all()
+    inspirations = Inspiration.objects.all().order_by('?')
 
     return render(request, "tools/inspirations.html", {'inspirations': inspirations,  'banner':banner} )
 
 def resources(request):
     banner = Page.objects.filter(slug="resources").first()
-    resources = Resource.objects.all()
+    resources = Resource.objects.all().order_by('?')
 
     return render(request, "tools/resources.html", {'resources': resources,  'banner':banner} )
 

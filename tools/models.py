@@ -111,7 +111,8 @@ class Tool(models.Model):
 	modified_date = models.DateTimeField(auto_now=True)
 
 	class Meta:
-		ordering = ('name',)
+		''
+		ordering = ('-modified_date',)
 
 	def ltype(self):
 		return self.__class__.__name__.lower()
