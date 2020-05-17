@@ -87,5 +87,22 @@ def search(request):
 
     return render(request, "tools/searchresults.html", {'results': results,'query':query} )
 
+def slotmachine(request):
+    #query = request.GET.get("q", False)
+    results = []
+    tools = []
+    tags =[]
+    activities = []
+    inspirations =[]
+
+    tag = Tag.objects.all().order_by('?').first()
+    tool = Tool.objects.all().order_by('?').first()
+    inspiration = Inspiration.objects.all().order_by('?').first()
+    resource = Resource.objects.all().order_by('?').first()
+    #activity = Activity.objects.all().order_by('?').first()
+
+
+    return render(request, "tools/slotmachine.html", {'tag': tag,'tool':tool, 'inspiration':inspiration, 'resource':resource} )
+
 
 

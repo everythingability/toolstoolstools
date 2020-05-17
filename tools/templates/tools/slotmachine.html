@@ -1,0 +1,47 @@
+{% extends "_base.html" %}
+{%block title%} Slot Machine {%endblock%}
+
+{%block head%}
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js" crossorigin="anonymous"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js" crossorigin="anonymous"></script>
+    
+<style>
+#canvas_container{
+    width:100%;
+    text-align:center;
+}
+
+canvas {
+    display: block;
+    text-align:center;
+    margin: 0 auto;   
+}
+
+
+    </style>
+
+{%endblock%}
+
+
+
+{% block content %}
+
+<h3>{{tag}}</h3>
+
+<script>
+    var slot1 = {'name':"{{inspiration.name}}",'image':'{{inspiration.image_url}}'}
+    var slot2 = {'name':"{{resource.name}}" , 'image': '{{resource.image_url}}'}
+    var slot3 = {'name':"{{tool.name}}" , 'image': '{{tool.image_url}}'}
+   
+    console.log(slot1)
+</script>
+
+<div id="canvas_container">
+  <script src="/static/sketches/slotmachine.js"></script>
+
+</div>
+
+
+
+
+{%endblock%}
