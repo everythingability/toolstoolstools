@@ -73,7 +73,7 @@ h1{
 
  <div class="card flex-row flex-wrap">
    {%for item in activity.inspirations.all%}
-          <div class="card" style="width: 15rem;">
+          <div class="card" style="width: 300px">
                 <div class="card-body">
                 <a href="{{item.url}}" target="_blank">
                     <img class="card-img-top" 
@@ -103,7 +103,7 @@ h1{
 
  <div class="card flex-row flex-wrap">
    {%for item in activity.resources.all%}
-          <div class="card" style="width: 15rem;">
+          <div class="card" style="width: 300px">
                 <div class="card-body">
                 <a href="{{item.url}}" target="_blank">
                     <img class="card-img-top" 
@@ -131,7 +131,7 @@ h1{
 
  <div class="card flex-row flex-wrap">
    {%for item in activity.tools.all%}
-          <div class="card" style="width: 15rem;">
+          <div class="card" style="width: 300px">
                 <div class="card-body">
                 <a href="{{item.url}}" target="_blank">
                     <img class="card-img-top" 
@@ -151,16 +151,18 @@ h1{
 </div> 
  <br> <br>
 
-{% if activity.learning_text %}
+
+
+{% if has_learnings %}
  <h3>Learning</h3>
  {% endif %}
 
  {{activity.learning_text|safe}}
 
-{%for tool in activity.tools.all%}
+
  <div class="card flex-row flex-wrap">
-   {%for item in tool.learnings.all%}
-          <div class="card" style="width: 15rem;">
+   {% for item in learnings %}
+          <div class="card" style="width: 300px">
                 <div class="card-body">
                 <a href="{{item.url}}" target="_blank">
                     <img class="card-img-top" 
@@ -178,28 +180,9 @@ h1{
             </div>
   {%endfor%}
 </div>
-{%endfor%}
 
- <div class="card flex-row flex-wrap">
-    {%for item in activity.learnings.all%}
-            <div class="card" style="width: 15rem;">
-                    <div class="card-body">
-                        <a href="{{item.url}}" target="_blank">
-                        <img class="card-img-top" 
-                            src="{%if item.image_url%}{{item.image_url}}{%endif%}" 
-                            alt="Card image cap" height="150"
-                        ></a>
 
-                        <p class="card-text"> 
-                            <b>{{item.name}}</b>
-                            <a href="{{item.url}}" target="_blank">{{item.url}}</a>
-                            <br>
-                            {{item.about|safe}}
-                        </p>
-                    </div>
-            </div>
-    {%endfor%}
-</div>
+
 
 
 

@@ -10,7 +10,7 @@ from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page, Res
 
 # Create your views here.
 def index(request):
-    activities = Activity.objects.filter(is_published=True)
+    activities = Activity.objects.filter(is_published=True).order_by('level__order')
     levels = Level.objects.all()
     banner = Page.objects.filter(slug="welcome-banner").first()
     return render(request, "tools/activities.html", 
@@ -21,8 +21,27 @@ def index(request):
 
 def view(request, slug):
     activity = Activity.objects.filter(slug=slug).first()
+    #gather learnings up
 
-    return render(request, "tools/activity.html", {'activity': activity} )
+    has_learnings = False
+    learnings = list(activity.learnings.all())
+   
+
+    for tool in activity.tools.all():
+        tool_learnings = tool.learnings.all()
+        for learning in tool_learnings:
+            if learning in learnings:
+                pass
+            else:
+                learnings.push(learning)
+
+    if len(learnings) > 0:
+         has_learnings = True
+
+    return render(request, "tools/activity.html",
+         {'activity': activity,
+        'learnings': learnings,
+        'has_learnings':has_learnings} )
 
 def page(request, slug):
     page = Page.objects.filter(slug=slug).first()
