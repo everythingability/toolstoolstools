@@ -68,17 +68,36 @@ admin.site.register(Page, PageAdmin)
 class ToolAdmin(admin.ModelAdmin):
 
 	exclude = ('category', 'altcategory')
-	list_display = ( '_get_linked_thumbnail' ,'name', 'tags_as_list','_get_link',)
+	list_display = ( '_get_linked_thumbnail' ,'name', 'tags_as_list','level','_get_link',)
 	list_filter = ('web_based','desktop','level','tags',)
 	search_fields = ['name', "about"]
 	filter_horizontal = ('tags','learnings')
-	actions = ['make_fun',]
+	actions = ['make_fun','make_beginner','make_learner','make_expert' ]
 
+	# LEVELS Beginner/Easy    Intermediate/Learner			Expert
 	def make_fun(modeladmin, request, queryset):
 		level = Level.objects.filter(name="Anyone/Fun").first()
 		print(level)
 		queryset.update(level=level)
 	make_fun.short_description = "Mark as Anyone or Fun"
+
+	def make_beginner(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Beginner/Easy").first()
+		print(level)
+		queryset.update(level=level)
+	make_beginner.short_description = "Mark as Beginner/Easy"
+
+	def make_learner(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Intermediate/Learner").first()
+		print(level)
+		queryset.update(level=level)
+	make_learner.short_description = "Mark as Intermediate/Learner"
+
+	def make_expert(modeladmin, request, queryset):
+		level = Level.objects.filter(name="Expert").first()
+		print(level)
+		queryset.update(level=level)
+	make_expert.short_description = "Mark as Expert"
 
 class InspirationAdmin(admin.ModelAdmin):
 	#fields = ('name', )

@@ -4,14 +4,32 @@
 	src: url('/static/fonts/Franklin Gothic Heavy Italic.ttf')  format('truetype'); 
 }
 
+@font-face {
+	font-family: 'Chicago';
+	src: url('/static/fonts/ChicagoFLF.ttf')  format('truetype'); 
+}
+
 body{
-    background:#fff;  
+    background:#d3d3d3;  
     font-size: 1.2rem;
     font-weight: 300;
 }
 
+.navbar{
+    background-color:#534F50;  
+    z-index:100;
+}
+.navbar-expand-lg .navbar-nav .nav-link {
+    font-family: 'Chicago';
+    color: #fff;
+    padding-right: 2rem;
+}
+.nav-link a:hover{
+    color: #f31281;
+}
 .container{   
     /*min-width:992px;*/
+    background:#fff;
     min-width: 768px;
     max-width: 968px;
 }
@@ -19,21 +37,20 @@ body{
     border: 0px!important;
     padding: 5px;
 }
-h1.activity{
+h1{
 
     text-align: center;
-    font-family: 'Franklin', sans-serif; 
+    font-family: 'Chicago', sans-serif; 
     color: white;
-    background: red;
-    position: absolute;
+    background: #f31281;
+   
     font-size: 70px;
-    padding: 10px;
-    top: 100px;
+     
     z-index: 100;
     margin: 0 auto;
-    margin-left:50px;
-    margin-bottom:100px;
-    width: 50%;
+    padding-bottom: 10px;
+    margin-bottom:40px;
+    width: 100%;
 
 }
 .lead{
@@ -45,13 +62,42 @@ h1.activity{
     background-color: white!important;
 
 }
+#homebanner{
+    margin-top: 0px;
+    text-align:center;  
+}
+#homebanner{
+    height: 234px;
+    background: url("/static/images/banner.png") no-repeat;
+}
 #banner{
     margin-top: 30px;
-    text-align:center;
-   
-   
+    text-align:center;  
 }
+h2{
+    font-size:60px;
+    font-family: 'Chicago', sans-serif; 
+    background: #f31281;
+    color: white;
+     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+     text-transform: uppercase;  
+}
+
 #banner h3{
-    font-size:80px;
-   font-family: 'Franklin', sans-serif; 
+    font-size:40px;
+   font-family: 'Chicago', sans-serif; 
+   background: #f31281;
+   color: white;
+    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+    text-transform: uppercase;
+}
+
+h3,h3 a{
+    font-size: 28px ;
+    text-align: center ;
+    font-family: 'Chicago', sans-serif; 
+    /*background: #f31281;*/
+    color: #f31281;
+    /* text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;*/
+    text-transform: uppercase;
 }

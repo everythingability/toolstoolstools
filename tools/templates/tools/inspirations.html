@@ -5,9 +5,9 @@
 {% block content %}
 
 
-  
+   <h1>{{banner.preamble|safe}}</h1>
 <div id="banner">
-     <h3>{{banner.preamble|safe}}</h3>
+    
      <br>
       <b>{{banner.text|safe}}</b>
 </div>
@@ -34,7 +34,7 @@
         {%endfor%}
     </ul>
 
-  {{inspiration.about|safe|striptags|truncatechars:44 }}
+  {{inspiration.about|safe|striptags }}
 
   <br>
   {% if request.user.is_authenticated %}

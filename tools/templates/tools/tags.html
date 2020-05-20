@@ -1,9 +1,10 @@
 {% extends "_base.html" %}
+
 {% block content %}
 
+<h1>{{banner.preamble|safe}}</h1>
 
-<div id="banner">
-     <h3>{{banner.preamble|safe}}</h3>
+<div id="banner">   
       <b>{{banner.text|safe}}</b>
 </div>
 
@@ -13,9 +14,6 @@
   {% for tag in tags %}
    <span style="font-size:{{tag.font_size}}px">
    <a  class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}} ({{tag.tools_count}})</a></span> &nbsp;&nbsp;
-   
- 
-   
   
   {%endfor%}
  
