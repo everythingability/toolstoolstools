@@ -1,8 +1,8 @@
 /*default version*/
-@font-face {
+/*@font-face {
 	font-family: 'Franklin';
 	src: url('/static/fonts/Franklin Gothic Heavy Italic.ttf')  format('truetype'); 
-}
+}*/
 
 @font-face {
 	font-family: 'Chicago';
@@ -13,6 +13,10 @@ body{
     background:#d3d3d3;  
     font-size: 1.2rem;
     font-weight: 300;
+    
+        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+        font-weight: 300;
+     
 }
 
 .navbar{
@@ -48,6 +52,7 @@ h1{
      
     z-index: 100;
     margin: 0 auto;
+    padding-top: 10px;
     padding-bottom: 10px;
     margin-bottom:40px;
     width: 100%;
@@ -85,20 +90,24 @@ h1{
     font-size: 36px;
 }
 h2{
-    font-size:60px;
-    font-family: 'Chicago', sans-serif; 
-    background: #f31281;
-    color: white;
-     text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
-     text-transform: uppercase;  
+    display:block;
+    margin: 0 auto;
+    width: 60%;
+    font-size:30px;
+    /*font-family: 'Chicago', sans-serif; */
+    color: #363134;
+   
+     /*text-transform: uppercase; */ 
 }
 
-#banner h3{
-    font-size:40px;
-   font-family: 'Chicago', sans-serif; 
-   background: #f31281;
-   color: white;
-    text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+#banner h2{
+    display:block;
+    margin: 0 auto;
+    width: 60%;
+    text-align:center;
+    font-size: 36px;
+    font-family: 'Chicago', sans-serif; 
+    color: #f31281;
     text-transform: uppercase;
 }
 
@@ -110,4 +119,9 @@ h3,h3 a{
     color: #f31281;
     /* text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;*/
     text-transform: uppercase;
+}
+
+h4,h4 a{
+    font-size: 22px ;
+    font-weight: bold;
 }

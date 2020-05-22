@@ -3,46 +3,14 @@
 {%block title%} {{activity.name}} {%endblock%}
 
 {% block content %}
-<style>
-/*
-.text-image { 
-    {% if activity.tools.all.count > 0 %} 
-    background-image: url('{{activity.tools.first.image_url}}');
-  {% elif activity.image %}  
-    background-image: url('/uploads/{{activity.image_url}}');
-  {%endif%}
-   filter: saturate(300%) brightness(71%) ;
-  background-position-x: center;
-  background-position-y: top;
-  background-size: cover;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  font-size:80px;
-   font-family: 'Franklin', sans-serif; 
-}
-
-h1{
-    margin-top: -10px;
-    color: #f31281;
-    font-size:80px;
-    font-family: 'Franklin', sans-serif; 
-}*/
-</style>
-<script>
-
-
-
-</script>
 
 <h1 class="text-image">
-  <img src="/static/images/favicon.png" width="64"
-    style="vertical-align:baseline;"/> 
-    
+  <img src="/static/images/logo_small.png" style="vertical-align:baseline;" width="80"/>   
     {{activity.name}}</h1>
 
-  <div class="lead">
+<h2>
     {{activity.preamble|safe}}
-   </div>
+   </h2>
 
     <ul class="list-inline">
         {%for tag in tool.tags.all%}
@@ -82,7 +50,7 @@ h1{
                     ></a>
 
                     <div class="card-text"> 
-                        <b>{{item.name}}</b>
+                        <h4>{{item.name}}</h4>
                         <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
                         <br>
                         {{item.about|safe}}
@@ -112,7 +80,7 @@ h1{
                     ></a>
 
                     <p class="card-text"> 
-                        <b>{{item.name}}</b>
+                        <h4>{{item.name}}</h4>
                         <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
                         <br>
                         {{item.about|safe}}
@@ -140,7 +108,7 @@ h1{
                     ></a>
 
                     <p class="card-text"> 
-                        <b>{{item.name}}</b>
+                        <h4>{{item.name}}</h4>
                         <a href="{{item.url}}"  target="_blank">{{item.url}}</a>
                         <br>
                         {{item.about|safe}}
@@ -171,7 +139,7 @@ h1{
                     ></a>
 
                     <p class="card-text"> 
-                        <b>{{item.name}}</b>
+                        <h4>{{item.name}}</h4>
                         <a href="{{item.url}}" target="_blank">{{item.url}}</a>
                         <br>
                         {{item.about|safe}}

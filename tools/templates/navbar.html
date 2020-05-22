@@ -11,7 +11,9 @@
     <ul class="navbar-nav">
     
       <li class="nav-item">
+      <nobr>
         <a class="nav-link" href="/"><img src="/static/images/favicon.png" width="32"> Home</a>
+      </nobr>
       </li>
 
      
@@ -36,17 +38,22 @@
       </li> 
     
       <li class="nav-item">
-        <a class="nav-link" href="/activities/page/contact-us">Contact Us</a>
+        <a class="nav-link" target="_blank" href="https://forms.gle/1EEvaynRDv7oYnG19">Suggest a tool</a>
       </li> 
+      <!--/activities/page/contact-us-->
 
        <li class="nav-item">
-        <a class="nav-link" href="/admin/">Admin</a>
-
-      </li> 
+         <a class="nav-link" href="/admin/"><img 
+         title="Administrators only"
+         src="/static/images/pencil.png" width="32"/></a>
+       </li> 
 
       {% if request.user.is_staff %}
             <li class="nav-item">
-              <a class="nav-link" href="/logout/">sign out</a>
+              <a class="nav-link" href="/logout/">
+              <img 
+         title="Sign out"
+         src="/static/images/cross.png" width="32"/></a>
             </li> 
       {%endif%}
   
