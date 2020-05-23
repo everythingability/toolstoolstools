@@ -57,7 +57,7 @@ class Tag(models.Model):
 		return tagC + resC + inspC
 
 	def font_size(self):
-		return translate(self.tools_count(), 0, 100, 12, 48 )
+		return translate(self.tools_count(), 0, 100, 18, 54 )
 
 	def save(self, *args, **kwargs):
 		self.slug = slugify(self.name)

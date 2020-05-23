@@ -10,8 +10,16 @@ from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page, Res
 
 # Create your views here.
 def index(request):
-    activities = Activity.objects.filter(is_published=True).order_by('level__order')
-    levels = Level.objects.all()
+    status = request.GET.get('before_we_begin')
+    print("before_we_begin",status)
+    if status == None: 
+        levels = Level.objects.filter(order__gte = 0).filter(order__lt = 4)
+        activities = Activity.objects.filter(is_published=True).filter(level__order__gt=-1).filter(level__order__lt=4).order_by('level__order')
+    else: # BEFORE WE BEGIN!
+        levels = Level.objects.filter(order__lt = 0)
+        activities = Activity.objects.filter(level__order__lt=0).order_by('level__order')
+
+    
     banner = Page.objects.filter(slug="welcome-banner").first()
     return render(request, "tools/activities.html", 
             {'activities': activities,
@@ -33,7 +41,7 @@ def view(request, slug):
             if learning in learnings:
                 pass
             else:
-                learnings.push(learning)
+                learnings.append(learning)
 
     if len(learnings) > 0:
          has_learnings = True
