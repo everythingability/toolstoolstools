@@ -140,7 +140,7 @@ class Tool(models.Model):
 	_get_link.allow_tags = True
 
 	def _get_linked_thumbnail(self):
-		return format_html(u'<img src="{}" width="100"/>', self.image_url)
+		return format_html(u'<img src="{}" width="100"/>_', self.image_url)
 	_get_linked_thumbnail.allow_tags = True
 
 	def __str__(self):
