@@ -87,9 +87,58 @@ class Level(models.Model):
 
 
 
+class ScreenCastVideo(models.Model):
+	name = models.CharField(max_length=255, null=True, default='')
+	url = models.URLField(max_length=250, null=True, default='')
+	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
 
+	about = HTMLField(default='', null=True, blank=True)
+	tags = models.ManyToManyField(Tag, blank=True,  )
+	created_date = models.DateTimeField(auto_now_add=True)
+	modified_date = models.DateTimeField(auto_now=True)
 
+	def _get_linked_thumbnail(self):
+		img = format_html(u'<img src="{}" width="100"/></a>', self.image_url)
+		linked_img = format_html('<a href="{}" target="_blank">' + img + "</a>", self.url)
+		return linked_img
+	_get_linked_thumbnail.allow_tags = True
 
+	def embed_url(self):
+		''
+		print("screencast:",self.id)
+		#https://www.youtube.com/embed/UTAMfolxyD0
+		if "https://www.youtube.com/watch?v" in self.url:
+			qs = self.url.split('?')
+			video_id = parse_qs(qs[1])['v'][0]
+			print(video_id)
+			return "https://www.youtube.com/embed/" + video_id
+		elif  "youtu.be" in self.url:
+			video_id = self.url.replace("https://youtu.be/", "")
+			return "https://www.youtube.com/embed/" + video_id
+		else:
+			return self.id
+
+	def __str__(self):
+		return self.name + ": " + self.url
+
+	def save(self, *args, **kwargs):
+		if "https://www.youtube.com/watch?v" in self.url:
+			url = self.url
+			url = url.replace("&feature=youtu.be", "")
+			qs = url.split('?')
+			video_id = parse_qs(qs[1])['v'][0]
+			self.image_url = "http://img.youtube.com/vi/%s/0.jpg" % video_id
+			self.url = url
+		elif "youtu.be" in self.url:#https://youtu.be/VSX_M_YDW34
+			url = self.url
+			video_id = url.replace("https://youtu.be/", "")
+			self.image_url = "http://img.youtube.com/vi/%s/0.jpg" % video_id
+			self.url = url
+		super(ScreenCastVideo, self).save(*args, **kwargs)
+
+	class Meta:
+		''
+		ordering = ('-id',)
 
 class Tool(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
@@ -125,7 +174,7 @@ class Tool(models.Model):
 		return str(    s   )
 
 	def save(self, *args, **kwargs):
-		self.slug = slugify(self.name)
+		#self.slug = slugify(self.name)
 		super(Tool, self).save(*args, **kwargs)
 
 
@@ -280,6 +329,8 @@ class Activity(models.Model):
 			blank=True, default=None, null=True)
 
 	youtube = models.URLField(max_length=250, null=True, default='', blank=True)
+	
+	screencasts = models.ManyToManyField(ScreenCastVideo,blank=True)
 	preamble = HTMLField(default='', null=True, blank=True)
 
 	level = models.ForeignKey(Level, on_delete=models.CASCADE, blank=True,null=True, related_name="alevel")
@@ -310,6 +361,9 @@ class Activity(models.Model):
 
 	def ltype(self):
 		return self.__class__.__name__.lower()
+
+	def screencasts_count(self):
+		return self.screencasts.count()
 
 	def tags_as_list(self):
 		# Children query

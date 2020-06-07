@@ -11,7 +11,7 @@ from django.utils.html import format_html_join
 from django.utils.safestring import mark_safe
 
 
-from .models import Tool, Category, Tag, Resource, Level, Inspiration, Activity, Learning, Page
+from .models import *
 
 
 
@@ -53,6 +53,14 @@ class ResourceAdmin(admin.ModelAdmin):
 	search_fields = ['name', "about"]
 	filter_horizontal = ('tags',)
 	exclude = ['category', 'altcategory',]
+
+class ScreencastAdmin(admin.ModelAdmin):
+	#fields = ('name', )
+   
+	list_display = ('name', '_get_linked_thumbnail' )
+	filter_horizontal = ('tags',)
+	search_fields = ['name', "about"]
+admin.site.register(ScreenCastVideo, ScreencastAdmin)
 
 class PageAdmin(admin.ModelAdmin):
 	#fields = ('name', )
@@ -141,10 +149,10 @@ get_picture_preview.short_description = "Picture Preview"
 
 class ActivityAdmin(admin.ModelAdmin):
 	exclude =      ('slug', )
-	list_display = (  'name', 'tags_as_list','level','is_published', '_get_link')
-	list_filter =  ('is_published','level','tags',)
+	list_display = (  'name', 'tags_as_list','level','is_published','screencasts_count', '_get_link')
+	list_filter =  ('is_published','level','tags',    )
 	search_fields = ['name', "preamble", "inspiration_text","resource_text", "tool_text"]
-	filter_horizontal = ('tags','inspirations','resources','tools', "learnings")
+	filter_horizontal = ('tags','inspirations','resources','tools', "learnings", "screencasts")
 	readonly_fields = [ "preview_image", ]
 	actions = ['publish','set_fun','set_beginner', 'set_learner','set_expert']
 
@@ -155,6 +163,9 @@ class ActivityAdmin(admin.ModelAdmin):
 			height=250,
 			)
 	)
+
+
+
 	def publish(modeladmin, request, queryset):
 		queryset.update(is_published=True)
 	publish.short_description = "Publish"

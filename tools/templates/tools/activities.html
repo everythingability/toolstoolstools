@@ -57,6 +57,7 @@ $(document).ready(function () {
     <section id="filters">
         <p id="fHeader">
          <fieldset id="group1">
+         
             <input type="radio" name="level" value="all" id="all" checked/> All &nbsp; &nbsp; &nbsp;
             {%for level in levels%}
                 <input type="radio" name="level" value="{{level.id}}" id="{{level.id}}" /> {{level.name}} 
@@ -112,7 +113,17 @@ $(document).ready(function () {
                       <a href="/activities/tag/{{tag.slug}}" class="badge badge-primary">{{tag.name}}</a></li>
                   {%endfor%}
                      <li class="badge badge-light">{{activity.level.name}}</li>
+                    <li class="badge">{%if activity.screencasts_count > 0 %}
+                    
+                        <img src="/static/images/has_youtube_intro.jpg" 
+                        style="vertical-align: baseline;"
+                        alt="has youtube intro" width="32">
+                     
+                     {%endif%}</li>
+                     
                   </ul>
+
+                    
 
                 {{activity.preamble|safe|striptags|truncatechars:82 }}
     

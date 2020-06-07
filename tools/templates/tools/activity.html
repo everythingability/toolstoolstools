@@ -10,7 +10,7 @@
 
 <h2>
     {{activity.preamble|safe}}
-   </h2>
+</h2>
 
     <ul class="list-inline">
         {%for tag in tool.tags.all%}
@@ -20,12 +20,24 @@
     </ul>
 
 
+
+<!--h2>Screencasts! {{activity.screencasts.all.count}}</h2-->
+
+ {% for screencast in activity.screencasts.all %}
+<center>
+    <iframe width="640" height="480" 
+    src="{{screencast.embed_url}}" frameborder="0" 
+    allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</center>
+{%endfor%}
+
   <hr class="my-4">
    {% if request.user.is_authenticated %}
    <a href="/admin/tools/activity/{{activity.id}}/change/" 
    class="badge badge-primary">Edit</a>
    <br>
   {%endif%}
+
 
 
  
