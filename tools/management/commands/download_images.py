@@ -10,7 +10,7 @@ from PIL import Image
 dir_path = os.path.dirname(os.path.realpath(__file__))
 class Command(BaseCommand):
     # python manage.py import_tools file="tools.csv"
-    help = 'meant to help me get started, importing a lot of initial data etc'
+    help = ''
 
     def add_arguments(self, parser):
         ''#parser.add_argument('file',  type=str)
