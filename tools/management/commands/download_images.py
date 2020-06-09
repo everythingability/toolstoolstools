@@ -15,6 +15,8 @@ class Command(BaseCommand):
     def add_arguments(self, parser):
         ''#parser.add_argument('file',  type=str)
 
+    ########## MADE A REAL ISSUE WITH THIS ###################
+    
     def handle(self, *args, **options):
         #filename  = options['file']
         try:
@@ -46,12 +48,10 @@ class Command(BaseCommand):
 
                             new_fname = "".join(fname.split(".")[:-1]) + "_small.jpg"
                             
-                            # FIX UP A WHOLE HEAP OF CRAP
-                            
+                            # FIX UP A WHOLE HEAP OF CRAP                           
                             new_fname = new_fname.replace("🔊", "") # fixed up this...
-                            #PHOTOMOSH_and_Desktop_—_tomsmith_web503___webapps_static_notes_—_ssh_tomsmith_tomsmith_webfactional_com_—_117×48_2289A191_small.jpg
                             new_fname = new_fname.replace("—", "") # fixed up this...
-                            #Lynksoft_—_Create_Explore_Share_239E6C1B_small.jpg
+                
                             print (new_fname)
                             new_fullpath = '/Users/tomsmith/toolstoolstools/toolstoolstools/tools/static/images/' + new_fname
                             img.save(new_fullpath)
