@@ -1,0 +1,51 @@
+{% extends "_base.html" %}
+
+{%block title%} Team {%endblock%}
+
+{% block content %}
+  {% comment %}
+   <h1>{{banner.preamble|safe}}</h1>
+  
+    <h2>{{banner.text|safe}}</h2>
+{% endcomment %}
+
+ 
+  
+  <div class="card flex-row flex-wrap">
+
+  {% for person in people %}
+   <div class="card" style="width: 300px">
+   <a href="{{person.url}}" target="_blank">
+   
+   {%if person.image_url%}
+      <img class="card-img-top" 
+      src="{{person.image_url}}" 
+      alt="Card image cap" height="150"
+      target="_blank">
+    {%endif%}
+      </a>
+
+  <div class="card-body">
+          <p class="card-text">
+
+  <h3>{%if person.url%}<a href="{{person.url}}" target="_blank">{%endif%}{{person.name}}{%if person.url%}</a>{%endif%}</h3>
+
+    
+
+  {{person.about|safe}}
+
+  <br>
+  {% if request.user.is_authenticated %}
+   <a href="/admin/tools/person/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <br>
+  {%endif%}
+ 
+ 
+       </div>
+    </div>
+  {%endfor%}
+
+
+</div>
+
+{% endblock %}

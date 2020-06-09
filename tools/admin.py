@@ -70,6 +70,13 @@ class PageAdmin(admin.ModelAdmin):
 	search_fields = ['name', "text"]
 admin.site.register(Page, PageAdmin)
 
+class PersonAdmin(admin.ModelAdmin):
+	#fields = ('name', )
+   
+	list_display = ('name', )
+
+	search_fields = ['name', "text"]
+admin.site.register(Person, PersonAdmin)
 
 
 

@@ -6,7 +6,7 @@ from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
 
-from .models import Tool, Category, Activity, Tag, Level, Inspiration, Page, Resource
+from .models import *
 
 # Create your views here.
 def index(request):
@@ -50,6 +50,11 @@ def view(request, slug):
          {'activity': activity,
         'learnings': learnings,
         'has_learnings':has_learnings} )
+
+
+def team(request):
+    people = Person.objects.all()
+    return render(request, "tools/team.html", {'people': people,} )
 
 def page(request, slug):
     page = Page.objects.filter(slug=slug).first()

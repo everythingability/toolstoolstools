@@ -10,6 +10,21 @@ from tinymce.models import HTMLField
 from urllib.parse import parse_qs
 
 # Not just pages but also text fragements used throughout the site
+
+class Person(models.Model):
+	slug = models.SlugField(null=True, blank=True, default='')
+	name = models.CharField(max_length=100)
+	preamble = HTMLField(default='', null=True, blank=True)
+	image_url = models.URLField(max_length=250, null=True, default='', blank=True)
+	youtube = models.URLField(max_length=250, null=True, default='', blank=True)
+
+	text = HTMLField(null=True, blank=True, default='')
+		#Can make upload folders personal
+	image = models.ImageField(upload_to ='', 
+			height_field=None, width_field=None, max_length=250,
+			blank=True, default=None, null=True)
+
+
 class Page(models.Model):
 	slug = models.SlugField(null=True, blank=True, default='')
 	name = models.CharField(max_length=100)

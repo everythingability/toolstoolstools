@@ -14,6 +14,7 @@ urlpatterns = [
     path('tag/<slug:tag>', views.tag, name='tag'),
     path('page/<slug:slug>', views.page, name='page'),
     path('slotmachine', views.slotmachine, name='slotmachine'),
+    path('team', views.team, name='team'),
     #
     #path('articles/<slug:title>/', views.article, name='article-detail'),
     #path('articles/<slug:title>/<int:section>/', views.section, name='article-section'),
