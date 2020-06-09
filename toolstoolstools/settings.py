@@ -14,8 +14,7 @@ import os, sys, platform
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-if "webfaction" in platform.uname()[1]:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
+ 
 
 print("BASE_DIR", BASE_DIR)
 
@@ -132,6 +131,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 STATIC_ROOT = BASE_DIR + "/static"
 
+MEDIA_ROOT = BASE_DIR + "/uploads"
+MEDIA_URL = "/uploads/"
+
+if "webfaction" in platform.uname()[1]:
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
+
+
 STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
@@ -140,8 +146,7 @@ STATICFILES_DIRS = [
 ]
 print("STATIC_ROOT", STATIC_ROOT)
 
-MEDIA_ROOT = BASE_DIR + "/uploads"
-MEDIA_URL = "/uploads/"
+
 
 # https://django-tinymce.readthedocs.io/en/latest/usage.html
 
