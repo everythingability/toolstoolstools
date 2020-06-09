@@ -15,7 +15,7 @@ import os, sys, platform
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 if "webfaction" in platform.uname()[1]:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/toolstoolstools"
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
 
 print("BASE_DIR", BASE_DIR)
 
