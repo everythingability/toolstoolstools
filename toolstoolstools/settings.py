@@ -129,7 +129,7 @@ USE_TZ = True
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
-STATIC_ROOT = BASE_DIR + "/static"
+
 
 MEDIA_ROOT = BASE_DIR + "/uploads"
 MEDIA_URL = "/uploads/"
@@ -137,6 +137,7 @@ MEDIA_URL = "/uploads/"
 if "webfaction" in platform.uname()[1]:
     BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
 
+STATIC_ROOT = BASE_DIR + "/static"
 
 STATIC_URL = '/static/'
 
