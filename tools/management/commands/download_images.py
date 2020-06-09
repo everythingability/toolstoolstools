@@ -47,6 +47,7 @@ class Command(BaseCommand):
                             new_fname = "".join(fname.split(".")[:-1]) + "_small.jpg"
                             new_fullpath = '/Users/tomsmith/toolstoolstools/toolstoolstools/tools/static/images/' + new_fname
                             print (new_fullpath)
+                            new_fullpath = new_fullpath.replace("🔊", "") # fixed up this...
                             img.save(new_fullpath)
 
                             tool.image_url = '/static/images/' + new_fname
