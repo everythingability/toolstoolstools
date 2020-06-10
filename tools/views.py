@@ -109,6 +109,8 @@ def search(request):
     tags =[]
     activities = []
     inspirations =[]
+    resources = []
+
     if query:
         tools = Tool.objects.filter( Q(name__contains=query)|Q(about__contains=query) )
         tags = Tag.objects.filter(slug__contains=tag).first()
@@ -116,7 +118,7 @@ def search(request):
         resources = Resource.objects.filter(Q(name__contains=query)|Q(about__contains=query) )
         activities = Activity.objects.filter(Q(name__contains=query)|Q(preamble__contains=query))
 
-    results = results   + list(activities) + list(tools) +list(inspirations)+list(resources)
+    results = results   + list(activities) + list(tools) +list(inspirations) + list(resources)
 
     return render(request, "tools/searchresults.html", {'results': results,'query':query} )
 

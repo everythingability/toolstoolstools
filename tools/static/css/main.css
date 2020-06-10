@@ -22,14 +22,17 @@ body{
 .navbar{
     background-color:#534F50;  
     z-index:100;
+    
 }
 .navbar-expand-lg .navbar-nav .nav-link {
     font-family: 'Chicago';
     color: #fff;
     padding-right: 2rem;
+    font-size:18px;
 }
 .nav-link a:hover{
     color: #f31281;
+   
 }
 .container{   
     /*min-width:992px;*/
