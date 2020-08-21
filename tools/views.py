@@ -79,7 +79,8 @@ def tags(request):
 def tools(request):
     tools = Tool.objects.all().order_by('?')
     banner = Page.objects.filter(slug="tools").first()
-    return render(request, "tools/tools.html", {'tools': tools,  'banner':banner} )
+    levels = Level.objects.filter(order__gte = 0).filter(order__lt = 5)
+    return render(request, "tools/tools.html", {'tools': tools,  'banner':banner, 'levels':levels} )
 
 def inspirations(request):
     banner = Page.objects.filter(slug="inspirations").first()
