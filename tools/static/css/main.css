@@ -44,6 +44,15 @@ body{
     border: 0px!important;
     padding: 5px;
 }
+.searchinput{
+    font-size: 12px;
+}
+button.searchbutton{
+    color: white;
+    background: #f31281;
+    font-family: 'Chicago', sans-serif; 
+
+}
 h1{
 
     text-align: center;
@@ -66,10 +75,7 @@ h1{
     font-weight: 400;
 }
 
-.searchbutton{
-    background-color: white!important;
 
-}
 #homebanner{
     margin-top: 0px;
     text-align:center;  
