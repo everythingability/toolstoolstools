@@ -2,8 +2,8 @@
 """Django's command-line utility for administrative tasks."""
 import os
 import sys
-sys.path.insert(0,'../env/lib/python3.7/site-packages')
-sys.path.insert(0, '/usr/local/lib/python3.8/site-packages') #Pillow "got lost"
+#sys.path.insert(0,'../env/lib/python3.7/site-packages')
+#sys.path.insert(0, '/usr/local/lib/python3.8/site-packages') #Pillow "got lost"
 
 
 def main():

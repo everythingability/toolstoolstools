@@ -1,4 +1,7 @@
-import requests
+try:
+    import requests
+except:
+    print ("Can't import requests")
 import os
 
 from django.shortcuts import render
