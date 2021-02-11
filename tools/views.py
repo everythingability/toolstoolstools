@@ -8,6 +8,7 @@ from django.shortcuts import render
 from django.shortcuts import redirect
 from django.db.models import Q
 from django.http import HttpResponse
+from django.http import JsonResponse
 
 from .models import *
 
@@ -142,6 +143,23 @@ def slotmachine(request):
 
 
     return render(request, "tools/slotmachine.html", {'tag': tag,'tool':tool, 'inspiration':inspiration, 'resource':resource} )
+
+def api(request):
+    #query = request.GET.get("q", False)
+    results = []
+    tools = []
+    tags =[]
+    activities = []
+    inspirations =[]
+    
+    tools = Tool.objects.all().order_by('?').all().values('name', 'url', 'image_url', 'about','category__name','altcategory__name')
+    inspirations = Inspiration.objects.all().order_by('?').all().values('name', 'url', 'image_url', 'about','category__name','altcategory__name')
+    resources = Resource.objects.all().order_by('?').all().values('name', 'url', 'image_url', 'about','category__name','altcategory__name')
+    
+    results = list( list(tools) + list(inspirations) + list(resources))
+    return JsonResponse(results, safe=False)
+    
+    #return render(request, "tools/api.html", {'results':results, 'inspirations':inspirations, 'resources':resources} )
 
 
 

@@ -9,6 +9,7 @@ urlpatterns = [
      path('tags', views.tags, name='tags'),
     path('inspirations', views.inspirations, name='inspirations'),
     path('resources', views.resources, name='resources'),
+      path('api', views.api, name='api'),
 
     path('search', views.search, name='search'),
     path('tag/<slug:tag>', views.tag, name='tag'),
