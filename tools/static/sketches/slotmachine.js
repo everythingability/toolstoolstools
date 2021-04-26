@@ -10,8 +10,12 @@ function setup() {
     background("yellow")
     textSize(18)
     img1 = loadImage(slot1.image)
+    console.log( slot1.image)
     img2 = loadImage(slot2.image)
+    console.log( slot2.image)
     img3 = loadImage(slot3.image)
+    console.log( slot3.image)
+
   
   }
   

@@ -86,6 +86,12 @@ def tools(request):
     levels = Level.objects.filter(order__gte = 0).filter(order__lt = 5)
     return render(request, "tools/tools.html", {'tools': tools,  'banner':banner, 'levels':levels} )
 
+def latest(request):
+    tools = Tool.objects.all().order_by('-created_date')
+    banner = Page.objects.filter(slug="tools").first()
+    levels = Level.objects.filter(order__gte = 0).filter(order__lt = 5)
+    return render(request, "tools/tools.html", {'tools': tools,  'banner':banner, 'levels':levels} )
+
 def inspirations(request):
     banner = Page.objects.filter(slug="inspirations").first()
     inspirations = Inspiration.objects.all().order_by('?')
@@ -128,21 +134,34 @@ def search(request):
     return render(request, "tools/searchresults.html", {'results': results,'query':query} )
 
 def slotmachine(request):
+    # See: https://codepen.io/AdrianSandu/pen/MyBQYz
     #query = request.GET.get("q", False)
     results = []
     tools = []
     tags =[]
     activities = []
     inspirations =[]
+    
 
-    tag = Tag.objects.all().order_by('?').first()
-    tool = Tool.objects.all().order_by('?').first()
-    inspiration = Inspiration.objects.all().order_by('?').first()
-    resource = Resource.objects.all().order_by('?').first()
+    #tags = Tag.objects.all().order_by('?')[0:20]
+    tools = Tool.objects.all().order_by('?')
+    tcount = int(tools.count())
+    inspirations = Inspiration.objects.all().order_by('?')
+    icount = int(inspirations.count())
+    resources = Resource.objects.all().order_by('?')
+    rcount = int(resources.count())
+
+    smallest = min( tcount, icount, rcount)
+    print("smallest", smallest)
+    tools = tools[0:smallest]
+    inspirations = inspirations[0:smallest]
+    resources = resources[0:smallest]
+
     #activity = Activity.objects.all().order_by('?').first()
 
 
-    return render(request, "tools/slotmachine.html", {'tag': tag,'tool':tool, 'inspiration':inspiration, 'resource':resource} )
+    return render(request, "tools/slotmachine.html", {
+    'tools':tools, 'inspirations':inspirations, 'resources':resources} )
 
 def api(request):
     #query = request.GET.get("q", False)

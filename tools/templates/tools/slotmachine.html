@@ -2,46 +2,217 @@
 {%block title%} Slot Machine {%endblock%}
 
 {%block head%}
-    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/p5.js" crossorigin="anonymous"></script>
-    <script src="//cdnjs.cloudflare.com/ajax/libs/p5.js/0.10.2/addons/p5.sound.min.js" crossorigin="anonymous"></script>
-    
-<style>
-#canvas_container{
-    width:100%;
-    text-align:center;
-}
-
-canvas {
-    display: block;
-    text-align:center;
-    margin: 0 auto;   
-}
-
-
-    </style>
+<!-- Thank you: https://momokang.github.io/slotmachine/ -->
 
 {%endblock%}
-
-
 
 {% block content %}
 
 <h3>{{tag}}</h3>
+<link rel="stylesheet" href="https://momokang.github.io/slotmachine/css/app.css">
+
+
+<style>
+.slotwrapper li{
+    font-size: 16px;
+    text-align:center;
+}
+.slotwrapper{
+    width:100%;
+    height:360px;
+    text-align:center;
+
+}
+
+.slotwrapper ul {
+    width: 300px;
+    height:280px;
+    font-size: 30px;
+    line-height: 14px;
+    text-align: center;
+    border:1px solid black;
+    margin: 5px;
+}
+</style>
+<center>
+<h3> Creativity Slot Machine</h3>
+<p>Sometimes, it pays to allow some randomness into your creative life.</p>
+<p>
+This slot machine randomly selects a random inspiration, a resource (images or sounds etc), and a tool. 
+See if you can spin the machine, explore the items, and see if they give you an idea.
+<br><br><br>
+</p>
+<div class="slotwrapper" id="example6">
+                    <ul data-playslot="2" style="top: -1200px;">
+                    {%for insp in inspirations%}
+                        <li>
+                            <a href="{{insp.url}}"  target="_blank" title="{{insp.name}}">
+                            <img src="{{insp.image_url}}" width="300" height="220"/>
+                            {{insp.name}}
+                            </a>
+                            <br><br><br>
+                        </li>
+                    {%endfor%}
+                        
+                    </ul>
+                    <ul data-playslot="2" style="top: -1000px;">
+                         {%for resource in resources%}
+                        <li><a href="{{resource.url}}" target="_blank" title="{{resource.name}}">
+                            <img src="{{resource.image_url}}" width="300"  height="220"/>
+                             {{resource.name}}
+                            </a>
+                           <br><br><br>
+                        </li>
+                    {%endfor%}
+                    </ul>
+                    <ul data-playslot="2" style="top: -600px;">
+                      {%for tool in tools%}
+                        <li><a href="{{tool.url}}" target="_blank" title="{{tool.name}}">
+                            <img src="{{tool.image_url}}" width="300"  height="220"/>
+                            {{tool.name}}
+                            </a>
+                            <br><br><br>
+                        </li>
+                    {%endfor%}
+                       
+                    </ul>
+</div>
+<br><br>
+<button type="button" class="btn btn-success btn-lg" id="btn-example6">Start Spin!</button>
+<br><br>
+<br><br>
+<br><br>
+</center>
 
 <script>
-    var slot1 = {'name':"{{inspiration.name}}",'image':'{{inspiration.image_url}}'}
-    var slot2 = {'name':"{{resource.name}}" , 'image': '{{resource.image_url}}'}
-    var slot3 = {'name':"{{tool.name}}" , 'image': '{{tool.image_url}}'}
-   
-    console.log(slot1)
+$('#btn-example6').click(function() {
+  $('#example6 ul').playSpin({});
+});
 </script>
 
-<div id="canvas_container">
-  <script src="/static/sketches/slotmachine.js"></script>
 
-</div>
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://momokang.github.io/slotmachine/js/slotmachine.min.js"></script>
 
+    <script type="text/javascript">
+        $('#btn-example1').click(function() {
+            $('#example1 ul').playSpin();
+        });
 
+        $('#btn-example2').click(function() {
+            var num1 = $('#txt-example2-1').val();
+            var num2 = $('#txt-example2-2').val();
+            var num3 = $('#txt-example2-3').val();
+            $('#example2 ul').playSpin({
+                endNum: [num1, num2, num3],
+            });
+        });
+
+        $('#btn-example3-1').click(function() {
+            $('#example3 ul').playSpin({
+                stopSeq: 'leftToRight'
+            });
+        });
+
+        $('#btn-example3-2').click(function() {
+            $('#example3 ul').playSpin({
+                stopSeq: 'rightToLeft'
+            });
+        });
+
+        $('#btn-example4').click(function() {
+            $('#example4 ul').playSpin({
+                easing: 'easeOutBack'
+            });
+        });
+
+        $('#btn-example5').click(function() {
+            var time = $('#txt-example5').val();
+            if (time < 0 || time == '') {
+                time = 0;
+            }
+            $('#example5 ul').playSpin({
+                time: time,
+            });
+        });
+
+        $('#btn-example6').click(function() {
+            $('#example6 ul').playSpin();
+        });
+
+        $('#btn-example7').click(function() {
+            $('#lbl-example7-1').text('');
+            $('#lbl-example7-2').text('');
+            $('#example7 ul').playSpin({
+                onEnd: function(num) {
+                    $('#lbl-example7-1').text($('#lbl-example7-1').text() + num.toString());
+                },
+                onFinish: function(num) {
+                    $('#lbl-example7-2').text(num);
+                }
+            });
+        });
+
+        var sound = new Audio('ttps://momokang.github.io/slotmachine/ringtones/spinning.mp3');
+        var ding = new Audio('ttps://momokang.github.io/slotmachine/ringtones/ding.wav');
+        // Loop of playing sound
+        sound.addEventListener('ended', function() {
+            this.currentTime = 0;
+            this.play();
+        }, false);
+
+        $('#btn-example8').click(function() {
+            sound.play(); // Start play the sound after click button
+            $('#example8 ul').playSpin({
+                time: 2000,
+                endNum: [1, 2, 7],
+                stopSeq: 'rightToLeft',
+                onEnd: function() {
+                    ding.play(); // Play ding after each number is stopped
+                },
+                onFinish: function() {
+                    sound.pause(); // To stop the looping sound is pause it
+                }
+            });
+        });
+
+        $('#btn-example9-start').click(function() {
+            $('#example9 ul').playSpin({
+                manualStop: true
+            });
+        });
+
+        $('#btn-example9-stop').click(function() {
+            $('#example9 ul').stopSpin();
+        });
+
+        var numKeeptrack = 0;
+        $('#btn-example10-start').click(function() {
+            numKeeptrack = 3;
+            $('#example10 #first').playSpin({
+                manualStop: true
+            });
+            $('#example10 #second').playSpin({
+                manualStop: true
+            });
+            $('#example10 #third').playSpin({
+                manualStop: true
+            });
+        });
+
+        $('#btn-example10-stop').click(function() {
+            if (numKeeptrack == 3) {
+                $('#example10 #third').stopSpin();
+            } else if (numKeeptrack == 2) {
+                $('#example10 #second').stopSpin();
+            } else if (numKeeptrack == 1) {
+                $('#example10 #first').stopSpin();
+            }
+            numKeeptrack--;
+        });
+    </script>
 
 
 {%endblock%}
