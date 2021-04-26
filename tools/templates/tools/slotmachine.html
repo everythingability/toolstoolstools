@@ -86,7 +86,21 @@ See if you can spin the machine, explore the items, and see if they give you an 
 
 <script>
 $('#btn-example6').click(function() {
-  $('#example6 ul').playSpin({});
+
+  $('#example6 ul').playSpin(
+      {time:2000,
+                onStart: function() {
+                    sound.play(); // Play ding after each number is stopped
+                },
+                
+                onEnd: function() {
+                    ding.play(); // Play ding after each number is stopped
+                },
+                onFinish: function() {
+                    sound.pause(); // To stop the looping sound is pause it
+                }
+        } 
+                );
 });
 </script>
 
@@ -155,8 +169,8 @@ $('#btn-example6').click(function() {
             });
         });
 
-        var sound = new Audio('ttps://momokang.github.io/slotmachine/ringtones/spinning.mp3');
-        var ding = new Audio('ttps://momokang.github.io/slotmachine/ringtones/ding.wav');
+        var sound = new Audio('https://momokang.github.io/slotmachine/ringtones/spinning.mp3');
+        var ding = new Audio('https://momokang.github.io/slotmachine/ringtones/ding.wav');
         // Loop of playing sound
         sound.addEventListener('ended', function() {
             this.currentTime = 0;
