@@ -1,17 +1,80 @@
 {% extends "_base.html" %}
-{%block title%} Slot Machine {%endblock%}
 
-{%block head%}
+{%block title%} Slot Machine {%endblock%}
 <!-- Thank you: https://momokang.github.io/slotmachine/ -->
 
-{%endblock%}
-
-{% block content %}
-
-<h3>{{tag}}</h3>
-<link rel="stylesheet" href="https://momokang.github.io/slotmachine/css/app.css">
+{%block head%}
+<style>
 
 
+.slotwrapper {
+    overflow: hidden;
+    display: inline-block;
+    border: 1px solid #000;
+    height: 200px;
+}
+.slotwrapper ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+    position: relative;
+    float: left;
+}
+.slotwrapper ul {
+    width: 200px;
+    height:200px;
+    font-size: 200px;
+    line-height: 200px;
+    text-align: center;
+}
+.slotwrapper ul li img {
+    vertical-align: top;
+}
+@media screen and (max-width: 1200px) {
+    .slotwrapper {
+        width: 100%;
+    }
+    .slotwrapper ul {
+        width: 33%;
+    }
+}
+@media screen and (max-width: 768px) {
+    .slotwrapper {
+        height: 100px;
+    }
+    .slotwrapper ul {
+        height:100px;
+        font-size: 100px;
+        line-height: 100px;
+    }
+}
+
+/* Example 10 override slotwrapper */
+#example10 {
+    height: 150px;
+}
+#example10 ul {
+    width: 150px;
+    height:150px;
+    font-size: 150px;
+    line-height: 150px;
+}
+@media screen and (max-width: 1200px) {
+    #example10 ul {
+        width: 18%;
+    }
+}
+@media screen and (max-width: 768px) {
+    #example10 {
+        height: 100px;
+    }
+    #example10 ul {
+        height:100px;
+        font-size: 100px;
+        line-height: 100px;
+    }
+}
+</style>
 <style>
 .slotwrapper li{
     font-size: 16px;
@@ -34,6 +97,12 @@
     margin: 5px;
 }
 </style>
+
+{%endblock%}
+
+{% block content %}
+<div>
+
 <center>
 <h3> Creativity Slot Machine</h3>
 <p>Sometimes, it pays to allow some randomness into your creative life.</p>
@@ -84,6 +153,16 @@ See if you can spin the machine, explore the items, and see if they give you an 
 <br><br>
 </center>
 
+
+
+</div>
+
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://momokang.github.io/slotmachine/js/slotmachine.min.js"></script>
+
 <script>
 $('#btn-example6').click(function() {
 
@@ -105,10 +184,6 @@ $('#btn-example6').click(function() {
 </script>
 
 
-   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <script src="https://momokang.github.io/slotmachine/js/slotmachine.min.js"></script>
 
     <script type="text/javascript">
         $('#btn-example1').click(function() {
@@ -227,6 +302,5 @@ $('#btn-example6').click(function() {
             numKeeptrack--;
         });
     </script>
-
 
 {%endblock%}
