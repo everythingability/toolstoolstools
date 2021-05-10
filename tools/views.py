@@ -87,12 +87,15 @@ def tools(request):
     return render(request, "tools/tools.html", {'tools': tools,  'banner':banner, 'levels':levels} )
 
 def latest(request):
-    tools = Tool.objects.all().order_by('-id')[0:10]
-    inspirations = Inspiration.objects.all().order_by('-id')[0:10]
+    tools = Tool.objects.all().order_by('-id')[0:5]
+    inspirations = Inspiration.objects.all().order_by('-id')[0:5]
+    resources = Resource.objects.all().order_by('-id')[0:5]
+
     banner = Page.objects.filter(slug="latest").first()
     levels = Level.objects.filter(order__gte = 0).filter(order__lt = 5)
 
-    results = list(tools)+list(inspirations)
+    results = list(tools)+list(inspirations)+list(resources)
+    
     return render(request, "tools/latest.html", {'tools': results,  'banner':banner, 'levels':levels} )
 
 def inspirations(request):

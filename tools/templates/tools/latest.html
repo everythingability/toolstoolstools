@@ -39,7 +39,6 @@ $(document).ready(function () {
 <style>
 #filters{
     text-align: center;
-
 }
 </style>
   
@@ -93,9 +92,9 @@ $(document).ready(function () {
             <a class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
     </ul>
-
+{% autoescape on %}
   {{tool.about|safe}}
-
+{% endautoescape %}
   <br>
   {% if request.user.is_authenticated %}
    <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
