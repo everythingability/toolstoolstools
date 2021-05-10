@@ -1,0 +1,113 @@
+{% extends "_base.html" %}
+
+{%block title%} Latest {%endblock%}
+
+{% block content %}
+<script>
+$(document).ready(function () {
+     $('.level_text').hide(); //hide all items
+
+    $('#filters :radio').click(function () {
+        if ($('input:radio:checked').length) {
+            console.log("hide all")
+           
+            $('.item').hide(); //hide all items
+            $('.level_text').hide(); //hide all items
+
+            $('input:radio:checked').each(function () {
+                var selector = '.level_'+ $(this).val() 
+                console.log("show", selector)
+                $( selector ).show();
+
+                var text_selector = '#level_'+ $(this).val() +"_text"
+                console.log("show", text_selector)
+                $( text_selector ).show();
+            });
+
+        } else {
+            console.log("show")
+            $(".item").show(); //show them all
+            $('.level_text').hide(); //hide all items
+        }
+        //count how many are showing...
+       var visible_items = $('.item:visible').length 
+       $("#activities_count").text(visible_items + " tools")
+    });
+    
+});
+</script>
+<style>
+#filters{
+    text-align: center;
+
+}
+</style>
+  
+   <h1>{{banner.preamble|safe}}</h1>
+  
+    <h2>{{banner.text|safe}}</h2>
+
+   <section id="filters">
+        <p id="fHeader">
+         <fieldset id="group1">
+         
+            <input type="radio" name="level" value="all" id="all" checked/> All &nbsp; &nbsp; &nbsp;
+            {%for level in levels%}
+                <input type="radio" name="level" value="{{level.id}}" id="{{level.id}}" /> {{level.name}} 
+                &nbsp; &nbsp; &nbsp;
+            {%endfor%}
+        </fieldset>
+
+        {%for level in levels%}
+           <div id="level_{{level.id}}_text" class="level_text">
+           <br>
+           <!--b> {{level.name}}</b-->{{level.text|safe}}</div>
+        {%endfor%}
+        </p>
+       <p id="activities_count"></p>
+    </section>
+
+ 
+  
+  <div class="card  flex-row flex-wrap">
+
+  {% for tool in tools %}
+   <div class="card item level_{{tool.level.id}} level_all" style="width: 300px">
+   <a href="{{tool.url}}" target="_blank">
+   
+   {%if tool.image_url%}
+      <img class="card-img-top" 
+      src="{{tool.image_url}}" 
+      alt="Card image cap" height="150"
+      target="_blank">
+    {%endif%}
+      </a>
+
+  <div class="card-body">
+          <p class="card-text">
+  <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
+  <!--{{tool.level.id}}-->
+     <ul class="list-inline">
+        {%for tag in tool.tags.all%}
+            <li class="list-inline-item">
+            <a class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
+        {%endfor%}
+    </ul>
+
+  {{tool.about|safe}}
+
+  <br>
+  {% if request.user.is_authenticated %}
+   <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
+   <br>
+  {%endif%}
+ 
+ 
+       </div>
+    </div>
+  {%endfor%}
+
+
+</div>
+
+{% endblock %}

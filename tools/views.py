@@ -89,11 +89,11 @@ def tools(request):
 def latest(request):
     tools = Tool.objects.all().order_by('-id')[0:10]
     inspirations = Inspiration.objects.all().order_by('-id')[0:10]
-    banner = Page.objects.filter(slug="tools").first()
+    banner = Page.objects.filter(slug="latest").first()
     levels = Level.objects.filter(order__gte = 0).filter(order__lt = 5)
 
     results = list(tools)+list(inspirations)
-    return render(request, "tools/tools.html", {'tools': results,  'banner':banner, 'levels':levels} )
+    return render(request, "tools/latest.html", {'tools': results,  'banner':banner, 'levels':levels} )
 
 def inspirations(request):
     banner = Page.objects.filter(slug="inspirations").first()
