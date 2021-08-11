@@ -142,13 +142,15 @@ USE_TZ = True
 MEDIA_ROOT = BASE_DIR + "/uploads"
 MEDIA_URL = "/uploads/"
 
-if "webfaction" in platform.uname()[1]:
-    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
+#if "webfaction" in platform.uname()[1]:
+
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__))) + "/tools"
 
 STATIC_ROOT = BASE_DIR + "/static"
 
 STATIC_URL = '/static/'
-
+# “/home/tomsmith/apps/creativity/toolstoolstools/static/icons/_2444A5F4.png” does not exist
+#/home/tomsmith/apps/creativity/toolstoolstools/tools/static
 STATICFILES_DIRS = [
    os.path.join(BASE_DIR, 'admin'),
    os.path.join(BASE_DIR, 'css'),
