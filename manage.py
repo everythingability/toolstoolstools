@@ -4,7 +4,7 @@ import os
 import sys
 #sys.path.insert(0,'../env/lib/python3.7/site-packages')
 #sys.path.insert(0, '/usr/local/lib/python3.8/site-packages') #Pillow "got lost"
-
+# https://static.everythingability.opalstacked.com/notes/flickguy_269C470D.png
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'toolstoolstools.settings')
