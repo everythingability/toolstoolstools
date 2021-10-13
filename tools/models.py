@@ -159,7 +159,7 @@ class Tool(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='')
-	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='https://static.everythingability.opalstacked.com/notes', blank=True)
 	about = HTMLField(default='', null=True, blank=True)
 	#HTMLField
 	tags = models.ManyToManyField(Tag, blank=True,  )
@@ -245,7 +245,7 @@ class Inspiration(models.Model):
 	name = models.CharField(max_length=255, null=True, default='')
 	
 	url = models.URLField(max_length=250, null=True, default='')
-	image_url = models.CharField(max_length=250, null=True, default='', blank=True)
+	image_url = models.CharField(max_length=250, null=True, default='https://static.everythingability.opalstacked.com/notes', blank=True)
 	about = HTMLField(default='', null=True, blank=True)
 	tags = models.ManyToManyField(Tag, blank=True,)
 	category = models.ForeignKey(Category, on_delete=models.CASCADE, blank=True,null=True, related_name="icategory1")
