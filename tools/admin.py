@@ -114,6 +114,8 @@ class ToolAdmin(admin.ModelAdmin):
 		queryset.update(level=level)
 	make_expert.short_description = "Mark as Expert"
 
+
+
 class InspirationAdmin(admin.ModelAdmin):
 	#fields = ('name', )
    
