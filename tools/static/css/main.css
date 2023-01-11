@@ -11,11 +11,10 @@
 
 body{
     background:#d3d3d3;  
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     font-weight: 300;
-    
-        font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
-        font-weight: 300;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+
      
 }
 
@@ -86,7 +85,7 @@ h1{
 }
 #banner{
     width: 60%;
-    font-size: 36px;
+    font-size: 34px;
     margin-top: 30px;
     text-align:center;  
 }
@@ -133,4 +132,13 @@ h3,h3 a{
 h4,h4 a{
     font-size: 22px ;
     font-weight: bold;
+}
+.list-inline-item{
+    font-size: 16px!important;
+    list-style-type: none; /* Remove bullets */
+    
+}
+
+div .card-text {
+    font-size:0.85rem!important;
 }

@@ -61,7 +61,7 @@ $(document).ready(function () {
         {%for level in levels%}
            <div id="level_{{level.id}}_text" class="level_text">
            <br>
-           <!--b> {{level.name}}</b-->{{level.text|safe}}</div>
+           <b> {{level.text|safe}}</b></div>
         {%endfor%}
         </p>
        <p id="activities_count"></p>
@@ -83,26 +83,28 @@ $(document).ready(function () {
     {%endif%}
       </a>
 
-  <div class="card-body">
-          <p class="card-text">
-  <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
-  <!--{{tool.level.id}}-->
+  <div class="card-body">   
+    <h3><a href="{{tool.url}}" target="_blank">{{tool.name}}</a></h3>
+
+    <div class="card-text">
+  
      <ul class="list-inline">
+        <li class="list-inline-item"><a class="badge badge-secondary" style="color:#fff">{{tool.level.name}}</a></li>
         {%for tag in tool.tags.all%}
-            <li class="list-inline-item">
+          <li class="list-inline-item">
             <a class="badge badge-primary" href="/activities/tag/{{tag.slug}}">{{tag.name}}</a></li>
         {%endfor%}
     </ul>
-
-  {{tool.about|safe}}
-
-  <br>
+    <br>
+    {{tool.about|safe}}
+    </div>
+  <p>
   {% if request.user.is_authenticated %}
    <a href="/admin/tools/tool/{{tool.id}}/change/" class="badge badge-primary">Edit</a>
-   <br>
+  </p>
   {%endif%}
  
- 
+
        </div>
     </div>
   {%endfor%}
